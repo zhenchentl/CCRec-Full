@@ -94,7 +94,6 @@ Due to the expansion of academic research in diverse fields, the problem of find
 % =============================================================================
 With the rapid development of Internet technology, the scale of the Internet is beyond the imagination of ordinary people become the main carrier of modern information sharing.
 
-initiating collaboration with unconnected researchers is burdensome and fraught with risk, despite potentially relevant expertise.
 
 A collaboration network is a type of academic social networks formed by researchers and their collaborations. In academia, recommending collaborators to different researchers (groups) may help researchers build more collaborations and become more prolific.
 
@@ -110,10 +109,10 @@ In this work we propose an academic collaboration recommendation model called CC
 % =============================================================================
 \section{DESIGN OF CCRec}
 % =============================================================================
-Our proposed design scheme for CCRec is inspired by the reality and truth that a researcher usually desires to know other researchers who have similar research interests and high academic value. As mentioned above, researchers often behave differently across multiple domains of interests. Such behaviors usually reveal academic features of different researchers in different domains. Besides, as the RWR model has been proved to be competent for calculating the rank score of node in social networks derived from the co-authorship, researchers' academic value can be well reflected by RWR. In this work, we proposed a content-based method to acquire multiple domains of interests. Furthermore, we define the *** to represent the academic values (Rank Score) of researchers in different domains, witch can be regard as the elements of feature vector of researchers. Finally,we use the feature vector to evaluate the similarity of researchers and then obtain the recommendation list.
+Our proposed design scheme for CCRec is inspired by the reality and truth that a researcher usually desires to know other researchers who have similar research interests. 
 
 
-In this work, we define the DoI and SoI for researchers in different domains. Furthermore, we use the feature vector combined by DoI and SoI to evaluate the similarity of researchers and then obtain the recommendation list.
+As mentioned above, researchers often behave differently across multiple domains of interests. Such behaviors usually reveal academic features of different researchers in the network. In this work, we define the DoI and SoI for researchers in different domains. Furthermore, we use the feature vector combined by DoI and SoI to evaluate the similarity of researchers and then obtain the recommendation list.
 
 %proposed a content based method to measure the "attention-degree" of researchers on different domains by parsing papers' title, and a graph based method to measure the %"influence-strength" by analysis the coauthor networks. Additionally, we merge the two metrics into "membership-degree" to measure the researchers academic interest feature. Finally, %we make a TopN recommendation based on the similarity of researchers' membership-degree vectors.
 
