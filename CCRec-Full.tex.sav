@@ -92,29 +92,17 @@ Due to the expansion of academic research in diverse fields, the problem of find
 % =============================================================================
 \section{Introduction}
 % =============================================================================
-<<<<<<< HEAD
 Nowadays, with rapid development of Internet technology, the scale of Internet is beyond the imagination of people and Internet gradually becomes the main carrier of sharing information. Thus, how to obtain the useful one from vast information has become a complex task with the problem of information overload phenomena occurring. Therefore, recommender systems and techniques immensely help people by providing easier access to the specific resources they really need.
 
 In academia, cooperation among researchers is of vital necessary. Studies show that researchers are usually prolific by well collaboration with collaborators. This is to say, the collaborator is a considerable factor well connected with the productivity of a scholar. So scholars tend to get acquainted with potential collaborators, especially the most valuable collaborators. In academic social networks, there has been a variety of methods proposed recommending collaborators who they have ever collaborated with or never.
 
-In this context, previous studies have exploited the utilization of affiliations and profiles for academic collaboration recommendation. Plenty of researches mainly cover two aspects, that is  it would be imperative taking research field into account when recommending collaborators.
-=======
-With the rapid development of Internet technology, the scale of the Internet is beyond the imagination of ordinary people become the main carrier of modern information sharing.
+In this context, previous studies have exploited mainly two aspects for academic collaboration recommendation, that is content-based and collaboration network-based methods respectively. Plenty of researches show that the traditional content-based method mostly focuses on the tags made by people, which can not completely stand for the research topic of the scholar. Thus, it would be imperative taking research field into account when recommending collaborators, particularly the personalized recommendation on account of various research fields. For the collaboration network-based method, there has been a suite of methods such as Random Walk algorithm, but rarely methods have ever integrated the content-based and collaboration network-based method. What's more, in view of the burdensome and embarrassing initial collaboration with unconnected researchers ever and the less value of already known collaborators, the unconnected researchers are more deserve to be recommended to seek more potential and valuable collaborators.
 
-
-A collaboration network is a type of academic social networks formed by researchers and their collaborations. In academia, recommending collaborators to different researchers (groups) may help researchers build more collaborations and become more prolific.
-
-Some existing research studies \cite{benchettara2010supervised} \cite{brandao2012affiliation} \cite{brandao2013using} have proposed the utilization of affiliations to exploit collaboration networks and profiles of researchers for academic collaboration recommendation. However, one important factor that has been consistently ignored by researchers is that collaborations among researchers largely depend on the research field reflected from their publications. Consequently, improved academic collaboration recommendation can be achieved through the combination of publication contents and collaboration networks.
->>>>>>> ef59c25211de507ec7e7586e5953da8eec787286
+In this paper, we propose a novel hybrid model exploiting publication contents and collaboration networks for collaborator recommendation called CCRec. CCRec combines content-based method and collaboration network-based method by synthesizing publication contents and collaboration networks. Because the publication contents are largely on behalf of the research field of a scholar, we can more precisely achieve the personalized recommendation according to their different kinds of research fields. We extract key words from publication contents of all researchers and divide these key words into several topics, then get a number of research fields corresponding to different researchers. 
 
 In this work we propose an academic collaboration recommendation model called CCRec. CCRec combines publication contents with collaboration networks to effectively generate academic collaboration recommendation for researchers. CCRec first uses topic clustering to partition the words from all the publications' titles into multiple domains. Then, CCRec computes the degree of interest (DoI) and the strength of influence (SoI) pertaining to each domain for each researcher. Finally, DoI and SoI are combined to form the feature vector for each researcher. By comparing the similarity of feature vector, CCRec provides a TopN collaboration recommendation list.
 
 % =============================================================================
-<<<<<<< HEAD
-\section{PROPOSED SCHEME}
-% =============================================================================
-Our proposed design scheme for CCRec is inspired by the reality and truth that a researcher usually desires to know other researchers who have similar research interests. As mentioned above, researchers often behave differently across multiple domains of interests. Such behaviors usually reveal academic features of different researchers in the network. In this work, we define the DoI and SoI for researchers in different domains. Furthermore, we use the feature vector combined by DoI and SoI to evaluate the similarity of researchers and then obtain the recommendation list.
-=======
 \section{RELATED WORK}
 % =============================================================================
 
@@ -122,11 +110,10 @@ Our proposed design scheme for CCRec is inspired by the reality and truth that a
 % =============================================================================
 \section{DESIGN OF CCRec}
 % =============================================================================
-Our proposed design scheme for CCRec is inspired by the reality and truth that a researcher usually desires to know other researchers who have similar research interests. 
+Our proposed design scheme for CCRec is inspired by the reality and truth that a researcher usually desires to know other researchers who have similar research interests and high academic value. As mentioned above, researchers often behave differently across multiple domains of interests. Such behaviors usually reveal academic features of different researchers in different domains. Besides, as the RWR model has been proved to be competent for calculating the rank score of node in social networks derived from the co-authorship, researchers' academic value can be well reflected by RWR. In this work, we proposed a content-based method to acquire multiple domains of interests. Furthermore, we define the *** to represent the academic values (Rank Score) of researchers in different domains, witch can be regard as the elements of feature vector of researchers. Finally,we use the feature vector to evaluate the similarity of researchers and then obtain the recommendation list.
 
 
-As mentioned above, researchers often behave differently across multiple domains of interests. Such behaviors usually reveal academic features of different researchers in the network. In this work, we define the DoI and SoI for researchers in different domains. Furthermore, we use the feature vector combined by DoI and SoI to evaluate the similarity of researchers and then obtain the recommendation list.
->>>>>>> ef59c25211de507ec7e7586e5953da8eec787286
+In this work, we define the DoI and SoI for researchers in different domains. Furthermore, we use the feature vector combined by DoI and SoI to evaluate the similarity of researchers and then obtain the recommendation list.
 
 %proposed a content based method to measure the "attention-degree" of researchers on different domains by parsing papers' title, and a graph based method to measure the %"influence-strength" by analysis the coauthor networks. Additionally, we merge the two metrics into "membership-degree" to measure the researchers academic interest feature. Finally, %we make a TopN recommendation based on the similarity of researchers' membership-degree vectors.
 
@@ -174,13 +161,10 @@ Finally, CCRec recommends potential academic collaborators to researchers who ha
 % =============================================================================
 \section{Evaluation and Analysis}
 % =============================================================================
-<<<<<<< HEAD
-=======
 We conduct various experiments using data from DBLP \cite{Ley:DBLP}, a computer science bibliography website hosted at University Trier. We extracted the subsets of the entire data using the required information, witch are all in the field of data mining involving 34 journals and 49 conferences. The data was modeled by an academic social network, witch contains 59659 nodes (authors) and 90282 edges (coauthor relations). We divided the data set into two parts: the data before year 2011 as a training set, and others as a testing set.To evaluate the performance of CCRec model, we use three metrics widely used in the recommender systems, \emph{Precision}, \emph{Recall} and \emph{F1} \cite{shani2011evaluating}.
 
 All experiments were performed on a 64-bit Linux-based operation system, Ubuntu 12.04 with a 4-duo and 32GHz Intel CPU, 4-G Bytes memory. All the programs are implemented with Python.
 
->>>>>>> ef59c25211de507ec7e7586e5953da8eec787286
 \begin{figure*}
 \centering
 \subfigure[Precision]{
