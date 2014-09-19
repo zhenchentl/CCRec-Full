@@ -117,13 +117,11 @@ Our proposed design scheme for CCRec is inspired by the reality and truth that a
 
 %In this work, we proposed a content-based method to acquire multiple domains of interests. Furthermore, we define the SoI (Strength of Influence) to denote the %academic values (Rank Score) of researchers in different domains, which can be regarded as the elements of feature vector of researchers. Finally,we use the %feature vector to evaluate the similarity of researchers and then obtain the recommendation list.
 %Topic clustering and researcher partition distribute researchers according to multiple domains.
-
 \begin{figure}
 \centering
 \includegraphics [width=3.4in]{Fig1.pdf}
 \caption{The architecture diagram of CCRec model}
 \end{figure}
-
 \subsection{Topic Clustering and Researcher Partition}
 % -----------------------------------------------------------------------------
 It is a content-based method for topic clustering and researcher partition, which generates various domains and maps all researchers into these domains. In this work, we use a famous tool of NLP (Natural Language Processing), word2vec, which provides an efficient implementation of the continuous of \emph{bag-of-words} and \emph{skip-gram} architectures for computing vector representations of words. It takes a text corpus as input and produces the word vectors as output. The resulting word vector file can be used as features in many natural language processing and machine learning applications. The word vectors can be also used for deriving word classes from huge data sets. This is achieved by performing K-means clustering on top of the word vectors. The output is a vocabulary file with words and their corresponding class IDs. In case of CCRec model, the input data is a set of titles from all the papers created by each researcher. The titles are split in many sequential words. In addition,  there is a necessary to filter out some irrelevant words, e.g. "of","the", "and", etc. For extracting from titles, this set of preprocessed words can outline the core contents of papers, which are signified as valuable and reliable corpus to denote a variety of academic topics. With this English corpus,word2vec obtains various domains and cluster the word into the domains.
@@ -142,12 +140,11 @@ In addition, with the help of RWR, The $SoI$s in various domains are quantified 
 
 \subsection{Collaboration Recommendation by Feature Vector Similarity}
 % -----------------------------------------------------------------------------
-In CCRec, the academic features of researchers are measured by the feature vector $F$. We use a \emph{cosine similarity} method to compute the similarity of these feature vectors, and further compute the similarity between researchers.
+CCRec recommend collaborators for researchers based on their similarities. To measure the academic features similarity of researchers, we borrow a standard method, \emph{cosine similarity} (CS). CS is employed to define the similarity between two users $s_{1}$ and $s_{2}$ based on their feature vectors $F_{s_{1}}$ and $F_{s_{2}}$.
 \begin{equation}
 Sim(s_{1},s_{2})=\frac{\sum_{i=1}^{n}(F_{s_{1},i}*F_{s_{2},i})}{\sqrt{\sum_{i=1}^{n}F_{s_{1},i}^2}*\sqrt{\sum_{i=1}^{n}F_{s_{2},i}^2}}
 \end{equation}
-
-Finally, CCRec recommends potential academic collaborators to researchers who have common interests and high similarities, by providing a TopN recommendation list for each researcher in the network.
+Finally, we consider that researchers with high similarities have common interest, they should be recommended to each other as potential academic collaborators. Hence, CCRec provide a TopN recommendation list for each researcher.
 
 % =============================================================================
 \section{Evaluation and Analysis}
@@ -155,7 +152,6 @@ Finally, CCRec recommends potential academic collaborators to researchers who ha
 We conduct various experiments using data from DBLP \cite{Ley:DBLP}, a computer science bibliography website hosted at University Trier. We extracted the subsets of the entire data using the required information, which are all in the field of data mining involving 34 journals and 49 conferences. The data was modeled by an academic social network, which contains 59659 nodes (authors) and 90282 edges (coauthor relations). We divided the data set into two parts: the data before year 2011 as a training set, and others as a testing set.To evaluate the performance of CCRec model, we use three metrics widely used in the recommender systems, \emph{Precision}, \emph{Recall} and \emph{F1} \cite{shani2011evaluating}.
 
 All experiments were performed on a 64-bit Linux-based operation system, Ubuntu 12.04 with a 4-duo and 32GHz Intel CPU, 4-G Bytes memory. All the programs are implemented with Python.
-
 \begin{figure*}
 \centering
 \subfigure[Precision]{
@@ -170,7 +166,6 @@ All experiments were performed on a 64-bit Linux-based operation system, Ubuntu 
 \caption{Performance of CCRec, RWRec and CNRec}
 \label{fig:5}       % Give a unique label
 \end{figure*}
-
 \begin{figure*}
 \centering
 \subfigure[Precision]{
