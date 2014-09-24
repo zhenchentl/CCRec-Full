@@ -149,36 +149,50 @@ Finally, we consider that researchers with high similarities have common interes
 % =============================================================================
 \section{Evaluation and Analysis}
 % =============================================================================
-We conduct various experiments using data from DBLP \cite{Ley:DBLP}, a computer science bibliography website hosted at University Trier. We extracted the subsets of the entire data using the required information, which are all in the field of data mining involving 34 journals and 49 conferences. The data was modeled by an academic social network, which contains 59659 nodes (authors) and 90282 edges (coauthor relations). We divided the data set into two parts: the data before year 2011 as a training set, and others as a testing set.To evaluate the performance of CCRec model, we use three metrics widely used in the recommender systems, \emph{Precision}, \emph{Recall} and \emph{F1} \cite{shani2011evaluating}.
+We conduct various experiments using data from DBLP \cite{Ley:DBLP}, a computer science bibliography website hosted at University Trier. We extracted the subsets of the entire data using the required information, which are all in the field of data mining involving 34 journals and 49 conferences. The data was modeled by an academic social network, which contains 59659 nodes (authors) and 90282 edges (coauthor relations). We divided the data set into two parts: the data before year 2011 as a training set, and others as a testing set. 
+
+We embarked on benchmarking experiments on CCRec. To evaluate the performance of CCRec model in a better way, we use three metrics which are widely used in the recommender systems, \emph{Precision}, \emph{Recall} and \emph{F1} \cite{shani2011evaluating}. We compared CCRec with the two following approaches. ACRec: a random walk recommendation model based on collaboration networks \cite{li2014acrec}. CNRec: a common neighbors based recommendation model \cite{lopes2010collaboration}. Three groups of experiments were conducted. 1, Find the most valuable collaborators, who may have known each other before, or active in adjacent circles. 2, Recommend most potential collaborators, who have never cooperated with the target researcher before. 3, Evaluate how domains clustering impact the performance of CCRec.
 
 All experiments were performed on a 64-bit Linux-based operation system, Ubuntu 12.04 with a 4-duo and 32GHz Intel CPU, 4-G Bytes memory. All the programs are implemented with Python.
+
+% =============================================================================
+\subsection{Most Valuable Collaborators Recommendation}
+% =============================================================================
+In our previous work \cite{li2014acrec}, We proposed the ACRec model to make the most valuable collaborators for researchers. The comparative result for CCRec and ACRec is shown in Fig. 2.
+
 \begin{figure*}
 \centering
 \subfigure[Precision]{
 \label{fig:2-a}
 \includegraphics[width=0.32\textwidth]{Fig2-a.png}}
-\subfigure[Recall Rate]{
+\subfigure[Recall]{
 \label{fig:2-b}
 \includegraphics[width=0.32\textwidth]{Fig2-b.png}}
 \subfigure[F1]{
 \label{fig:2-c}
 \includegraphics[width=0.32\textwidth]{Fig2-c.png}}
-\caption{Performance of CCRec, RWRec and CNRec}
-\label{fig:5}       % Give a unique label
+\caption{Performance of CCRec and ACRec on most valuable collaborators recommendation}
+\label{fig:2}
 \end{figure*}
+
+% =============================================================================
+\subsection{Most Potential Collaborators Recommendation}
+% =============================================================================
+We recommend the new collaborators who never cooperated with the target researcher, because the new collaborators are more meaningful and practical in academia.
+
 \begin{figure*}
 \centering
 \subfigure[Precision]{
 \label{fig:3-a}
 \includegraphics[width=0.32\textwidth]{Fig3-a.png}}
-\subfigure[Recall Rate]{
+\subfigure[Recall]{
 \label{fig:3-b}
 \includegraphics[width=0.32\textwidth]{Fig3-b.png}}
 \subfigure[F1]{
 \label{fig:3-c}
 \includegraphics[width=0.32\textwidth]{Fig3-c.png}}
-\caption{Performance of CCRec, RWRec and CNRec}
-\label{fig:5}       % Give a unique label
+\caption{Performance of CCRec, ACRec and CNRec on most potential collaborators recommendation}
+\label{fig:3}       % Give a unique label
 \end{figure*}
 
 Using a subset of DBLP dataset relevant to data mining, we embarked on benchmarking experiments to evaluate the performance of CCRec. We took the year 2011 as the partition time of training and testing sets. To evaluate our model in a better way, we compared CCRec with the two following approaches. RWRec: a random walk recommendation model based on collaboration networks. CNRec: a common neighbors based recommendation model \cite{lopes2010collaboration}. We adopted three metrics to evaluate the performance of CCRec: precision, recall rate and F1. We recommend the new collaborators who never cooperated with the target researcher, because the new collaborators are more meaningful and practical in academia.
