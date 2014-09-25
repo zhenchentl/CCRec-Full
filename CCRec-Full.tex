@@ -149,7 +149,7 @@ Finally, we consider that researchers with high similarities have common interes
 % =============================================================================
 \section{Evaluation and Analysis}
 % =============================================================================
-We conduct various experiments using data from DBLP \cite{Ley:DBLP}, a computer science bibliography website hosted at University Trier. We extracted the subsets of the entire data using the required information, which are all in the field of data mining involving 34 journals and 49 conferences. The data was modeled by an academic social network, which contains 59659 nodes (authors) and 90282 edges (coauthor relations). We divided the data set into two parts: the data before year 2011 as a training set, and others as a testing set. 
+We conduct various experiments using data from DBLP \cite{Ley:DBLP}, a computer science bibliography website hosted at University Trier. We extracted the subsets of the entire data using the required information, which are all in the field of data mining involving 34 journals and 49 conferences. The data was modeled by an academic social network, which contains 59659 nodes (authors) and 90282 edges (coauthor relations). We divided the data set into two parts: the data before year 2011 as a training set, and others as a testing set.
 
 We embarked on benchmarking experiments on CCRec. To evaluate the performance of CCRec model in a better way, we use three metrics which are widely used in the recommender systems, \emph{Precision}, \emph{Recall} and \emph{F1} \cite{shani2011evaluating}. We compared CCRec with the two following approaches. ACRec: a random walk recommendation model based on collaboration networks \cite{li2014acrec}. CNRec: a common neighbors based recommendation model \cite{lopes2010collaboration}. Three groups of experiments were conducted. 1, Find the most valuable collaborators, who may have known each other before, or active in adjacent circles. 2, Recommend most potential collaborators, who have never cooperated with the target researcher before. 3, Evaluate how domains clustering impact the performance of CCRec.
 
@@ -158,7 +158,7 @@ All experiments were performed on a 64-bit Linux-based operation system, Ubuntu 
 % =============================================================================
 \subsection{Most Valuable Collaborators Recommendation}
 % =============================================================================
-In our previous work \cite{li2014acrec}, We proposed the ACRec model to make the most valuable collaborators for researchers. The comparative result for CCRec and ACRec is shown in Fig. 2.
+In our previous work \cite{li2014acrec}, We proposed the ACRec model to make the most valuable collaborators for researchers. In this section, we explored the performance of CCRec and ACRec on making most valuable collaborators recommendation. The comparative results are shown in Fig. 2.
 
 \begin{figure*}
 \centering
@@ -175,6 +175,7 @@ In our previous work \cite{li2014acrec}, We proposed the ACRec model to make the
 \label{fig:2}
 \end{figure*}
 
+As shown in Fig. 2, The number of recommended collaborators have an obvious influence on the metrics with a clear trend. In terms of precision in Fig. 2(a), it drops when the number of recommended collaborators is increasing. At the same time, the recall in Fig. 2(b) rise with the growth of recommendation list, which approximate to $25\%$ in the end. Thus it can be seen, the precision and recall is a pair of contradictory metrics. Weighing the two metrics to maximum the profit, G. Shani et al. \cite{shani2011evaluating} adopt the metric $F1$. Fig. 2(c) describes the performance of CCRec and ACRec on $F1$.
 % =============================================================================
 \subsection{Most Potential Collaborators Recommendation}
 % =============================================================================
