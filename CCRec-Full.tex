@@ -106,7 +106,7 @@ The remainder of the paper is structured as follows. Section 2 briefly presents 
 % =============================================================================
 \section{RELATED WORK}
 % =============================================================================
-Social networks have been researched for decades to exploit the relationships and interactions between people. There is also a sample system helping people find experts on a certain topic. While summarizing the preterit work, researches mainly focus on three parts including content-based method, social networks-based method and minority hybrid method. For the first two methods, many practical examples have confirmed it, but fewer researches have done for the hybrid method. 
+Social networks have been researched for decades to exploit the relationships and interactions between people. There is also a sample system helping people find experts on a certain topic. While summarizing the preterit work, researches mainly focus on three parts including content-based method, social networks-based method and minority hybrid method. For the first two methods, many practical examples have confirmed it, but fewer researches have done for the hybrid method.
 
 % =============================================================================
 \section{DESIGN OF CCRec}
@@ -151,7 +151,7 @@ Finally, we consider that researchers with high similarities have common interes
 % =============================================================================
 We conduct various experiments using data from DBLP \cite{Ley:DBLP}, a computer science bibliography website hosted at University Trier. We extracted the subsets of the entire data using the required information, which are all in the field of data mining involving 34 journals and 49 conferences. The data was modeled by an academic social network, which contains 59659 nodes (authors) and 90282 edges (coauthor relations). We divided the data set into two parts: the data before year 2011 as a training set, and others as a testing set.
 
-We embarked on benchmarking experiments on CCRec. To evaluate the performance of CCRec model in a better way, we use three metrics which are widely used in the recommender systems, \emph{Precision}, \emph{Recall} and \emph{F1} \cite{shani2011evaluating}. We compared CCRec with the two following approaches. ACRec: a random walk recommendation model based on collaboration networks \cite{li2014acrec}. CNRec: a common neighbors based recommendation model \cite{lopes2010collaboration}. Three groups of experiments were conducted. 1, Find the most valuable collaborators, who may have known each other before, or active in adjacent circles. 2, Recommend most potential collaborators, who have never cooperated with the target researcher before. 3, Evaluate how domains clustering impact the performance of CCRec.
+We embarked on benchmarking experiments on CCRec. To evaluate the performance of CCRec model in a better way, we use three metrics which are widely used in the recommender systems, \emph{Precision}, \emph{Recall} and \emph{F1} \cite{shani2011evaluating}. We compared CCRec with the two following approaches. ACRec: a random walk recommendation model based on collaboration networks \cite{li2014acrec}. CNRec: a common neighbors based recommendation model \cite{lopes2010collaboration}. Three groups of experiments were conducted. 1, Find the most valuable collaborators, who may have known each other before, or active in adjacent circles. 2, Recommend most potential collaborators, who have never cooperated with the target researcher before. 3, Evaluate how domains clustering impact the performance of CCRec. For each experiments, we randomly chose 100 constant researchers which are at least somewhat active in academic activity, say have coauthored more than 30 person-time with others. We make collaborators recommendation for these 100 researchers, moreover compute the average of precision, recall and $F1$.
 
 All experiments were performed on a 64-bit Linux-based operation system, Ubuntu 12.04 with a 4-duo and 32GHz Intel CPU, 4-G Bytes memory. All the programs are implemented with Python.
 
@@ -182,8 +182,7 @@ In terms of Fig. 2, It is  much in evidence that ACRec model outperforms CCRec m
 % =============================================================================
 \subsection{Most Potential Collaborators Recommendation}
 % =============================================================================
-We define the Most Potential Collaborators as some collaborators who are worthy enough to be recommended and have never cooperated with the target researcher.
-Making the most potential collaborators recommendation is of great significance as the new collaborators are more meaningful and practical in academia. In this section, we explored the performance of CCRec, ACRec and CCRec on making most valuable collaborators recommendation. The comparative results are shown in Fig. 3.
+We define the Most Potential Collaborators as some collaborators who are worthy enough to be recommended and have never cooperated with the target researcher. Making the most potential collaborators recommendation is of great significance as the new collaborators are more meaningful and practical in academia. In this section, we explored the performance of CCRec, ACRec and CCRec on making most valuable collaborators recommendation.
 
 \begin{figure*}
 \centering
@@ -200,9 +199,14 @@ Making the most potential collaborators recommendation is of great significance 
 \label{fig:3}       % Give a unique label
 \end{figure*}
 
-Figure 2 shows the performance of CCRec, RWRec and CNRec in terms of precision, recall rate and F1 with the number of recommended collaborators increasing. It can be observed that CCRec significantly outperforms RWRec and CNRec all the time in these three metrics. CCRec shows a downtrend for precision and an uptrend for recall rate. In the case of F1, it reaches the peak 6.598\% when recommending 18 researchers.
+Figure 3 shows the performance of CCRec, ACRec and CNRec in terms of precision, recall and $F1$ with the number of recommended collaborators increasing. It can be observed that CCRec significantly outperforms ACRec and CNRec all the time on these three metrics. CCRec shows a downtrend for precision and an uptrend for recall rate. In the case of $F1$, it reaches the peak 4.18\% when recommending 21 researchers. We also see the evidence of this, when making most potential collaborators recommendation, ACRec performs similarly to CNRec.
 
-In a nutshell, CCRec outperforms RWRec and CNRec with higher precision, recall rate and F1. This is because CCRec combines publication contents and collaboration networks which has a distinct advantage in recommending new collaborators.
+In a nutshell, CCRec outperforms ACRec and CNRec with higher precision, recall and $F1$ on making the most potential collaborators. We analyzed the theory. Each researcher is represented by the feature vector, as well as CCRec model combines publications contents and collaboration networks to define the vector, which has distinct advantages (e.g. rich information, more accurately to represent researchers' feature) in recommending new collaborators.
+
+% =============================================================================
+\subsection{Impact of clustered Domains number}
+% =============================================================================
+In this section, we exploit the impact of clustered domains number.
 
 % =============================================================================
 \section{Conclusions}
