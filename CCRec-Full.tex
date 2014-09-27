@@ -17,12 +17,12 @@
 \begin{document}
 
 \title{Exploiting Publication Contents and Collaboration Networks for Collaborator Recommendation}
-\subtitle{
+%\subtitle{
 %[Extended Abstract]
-\titlenote{A full version of this paper is available as
-\textit{Author's Guide to Preparing ACM SIG Proceedings Using
-\LaTeX$2_\epsilon$\ and BibTeX} at
-\texttt{www.acm.org/eaddress.htm}}}
+%\titlenote{A full version of this paper is available as
+%\textit{Author's Guide to Preparing ACM SIG Proceedings Using
+%\LaTeX$2_\epsilon$\ and BibTeX} at
+%\texttt{www.acm.org/eaddress.htm}}}
 
 \numberofauthors{8}
 
@@ -70,10 +70,10 @@ one who did all the really hard work.}\\
        \email{cpalmer@prl.com}
 }
 
-\additionalauthors{Additional authors: John Smith (The Th{\o}rv{\"a}ld Group,
-email: {\texttt{jsmith@affiliation.org}}) and Julius P.~Kumquat
-(The Kumquat Consortium, email: {\texttt{jpkumquat@consortium.net}}).}
-\date{30 July 1999}
+%\additionalauthors{Additional authors: John Smith (The Th{\o}rv{\"a}ld Group,
+%email: {\texttt{jsmith@affiliation.org}}) and Julius P.~Kumquat
+%(The Kumquat Consortium, email: {\texttt{jpkumquat@consortium.net}}).}
+%\date{30 July 1999}
 
 \maketitle
 \begin{abstract}
@@ -108,6 +108,10 @@ The remainder of the paper is structured as follows. Section 2 briefly presents 
 % =============================================================================
 Social networks have been researched for decades to exploit the relationships and interactions between people. There is also a sample system helping people find experts on a certain topic. While summarizing the preterit work, researches mainly focus on three parts including content-based method, social networks-based method and minority hybrid method. For the first two methods, many practical examples have confirmed it, but fewer researches have done for the hybrid method.
 
+Many approaches have been presented to formalize academic collaboration recommendation as a link prediction problem. Link prediction is to predict new links that might be added to the social networks, which is useful for collaborator recommendation, but differs from it in that the latter is context-based. David et al. first defined link prediction: to predict the edges that will be added to the network in the future time t' at the time of t in a social network. Some of these approaches have been applied to large social networks and results show a good performance. Lichtenwalter et al. examined some important factors for link prediction and proposed a general framework.
+
+The CollabSeer system recommends collaborators for a researcher based on the co-authorship network, which a an open system introduced by Chen et al. considering the co-author network and research interests for collaborators. Ma et al. analysed how social networks information can benefit recommender systems and proposed a method improving the performance of recommender systems by incorporating social network information.
+
 % =============================================================================
 \section{DESIGN OF CCRec}
 % =============================================================================
@@ -122,6 +126,7 @@ Our proposed design scheme for CCRec is inspired by the reality and truth that a
 \includegraphics [width=3.4in]{Fig1.pdf}
 \caption{The architecture diagram of CCRec model}
 \end{figure}
+
 \subsection{Topic Clustering and Researcher Partition}
 % -----------------------------------------------------------------------------
 It is a content-based method for topic clustering and researcher partition, which generates various domains and maps all researchers into these domains. In this work, we use a famous tool of NLP (Natural Language Processing), word2vec, which provides an efficient implementation of the continuous of \emph{bag-of-words} and \emph{skip-gram} architectures for computing vector representations of words. It takes a text corpus as input and produces the word vectors as output. The resulting word vector file can be used as features in many natural language processing and machine learning applications. The word vectors can be also used for deriving word classes from huge data sets. This is achieved by performing K-means clustering on top of the word vectors. The output is a vocabulary file with words and their corresponding class IDs. In case of CCRec model, the input data is a set of titles from all the papers created by each researcher. The titles are split in many sequential words. In addition,  there is a necessary to filter out some irrelevant words, e.g. "of","the", "and", etc. For extracting from titles, this set of preprocessed words can outline the core contents of papers, which are signified as valuable and reliable corpus to denote a variety of academic topics. With this English corpus,word2vec obtains various domains and cluster the word into the domains.
@@ -151,13 +156,12 @@ Finally, we consider that researchers with high similarities have common interes
 % =============================================================================
 We conduct various experiments using data from DBLP \cite{Ley:DBLP}, a computer science bibliography website hosted at University Trier. We extracted the subsets of the entire data using the required information, which are all in the field of data mining involving 34 journals and 49 conferences. The data was modeled by an academic social network, which contains 59659 nodes (authors) and 90282 edges (coauthor relations). We divided the data set into two parts: the data before year 2011 as a training set, and others as a testing set.
 
-We embarked on benchmarking experiments on CCRec. To evaluate the performance of CCRec model in a better way, we use three metrics which are widely used in the recommender systems, \emph{Precision}, \emph{Recall} and \emph{F1} \cite{shani2011evaluating}. We compared CCRec with the two following approaches. ACRec: a random walk recommendation model based on collaboration networks \cite{li2014acrec}. CNRec: a common neighbors based recommendation model \cite{lopes2010collaboration}. Three groups of experiments were conducted. 1, Find the most valuable collaborators, who may have known each other before, or active in adjacent circles. 2, Recommend most potential collaborators, who have never cooperated with the target researcher before. 3, Evaluate how domains clustering impact the performance of CCRec. For each experiments, we randomly chose 100 constant researchers which are at least somewhat active in academic activity, say have coauthored more than 30 person-time with others. We make collaborators recommendation for these 100 researchers, moreover compute the average of precision, recall and $F1$.
+We embarked on benchmarking experiments on CCRec. To evaluate the performance of CCRec model in a better way, we use three metrics which are widely used in the recommender systems, \emph{Precision}, \emph{Recall} and \emph{F1} \cite{shani2011evaluating}. We compared CCRec with the two following approaches. ACRec: a random walk recommendation model based on collaboration networks \cite{li2014acrec}. CNRec: a common neighbors based recommendation model \cite{lopes2010collaboration}. Four groups of experiments were conducted. 1, Find the most valuable collaborators, who may have known each other before, or active in adjacent circles. 2, Recommend most potential collaborators, who have never cooperated with the target researcher before. 3, Evaluate how domains clustering impact the performance of CCRec. 4, Exploit the impact of clustered domains number on CCRec. For each experiments, we randomly chose 100 constant researchers which are at least somewhat active in academic activity, say have coauthored more than 30 person-time with others. We make collaborators recommendation for these 100 researchers, moreover compute the average of precision, recall and $F1$.
 
 All experiments were performed on a 64-bit Linux-based operation system, Ubuntu 12.04 with a 4-duo and 32GHz Intel CPU, 4-G Bytes memory. All the programs are implemented with Python.
 
-% =============================================================================
 \subsection{Most Valuable Collaborators Recommendation}
-% =============================================================================
+% -----------------------------------------------------------------------------
 In our previous work \cite{li2014acrec}, We proposed the ACRec model to make the most valuable collaborators for researchers. In this section, we explored the performance of CCRec and ACRec on making most valuable collaborators recommendation. The comparative results are shown in Fig. 2.
 
 \begin{figure*}
@@ -179,9 +183,8 @@ As shown in Fig. 2, The number of recommended collaborators have an obvious infl
 
 In terms of Fig. 2, It is  much in evidence that ACRec model outperforms CCRec model on making most valuable collaborators recommendation. This is because, ACRec base on a link-importance guiding random walk, considering the walk distance and rank score, find the most valuable collaborators who may have known each other before, or active in adjacent circles. Thus, comparing with ACRec, there is no obvious advantage for CCRec to find the most valuable collaborators in adjacent circles.
 
-% =============================================================================
 \subsection{Most Potential Collaborators Recommendation}
-% =============================================================================
+% -----------------------------------------------------------------------------
 We define the Most Potential Collaborators as some collaborators who are worthy enough to be recommended and have never cooperated with the target researcher. Making the most potential collaborators recommendation is of great significance as the new collaborators are more meaningful and practical in academia. In this section, we explored the performance of CCRec, ACRec and CCRec on making most valuable collaborators recommendation.
 
 \begin{figure*}
@@ -199,15 +202,23 @@ We define the Most Potential Collaborators as some collaborators who are worthy 
 \label{fig:3}       % Give a unique label
 \end{figure*}
 
-Figure 3 shows the performance of CCRec, ACRec and CNRec in terms of precision, recall and $F1$ with the number of recommended collaborators increasing. It can be observed that CCRec significantly outperforms ACRec and CNRec all the time on these three metrics. CCRec shows a downtrend for precision and an uptrend for recall rate. In the case of $F1$, it reaches the peak 4.18\% when recommending 21 researchers. We also see the evidence of this, when making most potential collaborators recommendation, ACRec performs similarly to CNRec.
+Figure 3 shows the performance of CCRec, ACRec and CNRec in terms of precision, recall and $F1$ with the number of recommended collaborators increasing. It can be observed that CCRec significantly outperforms ACRec and CNRec all the time on these three metrics. CCRec shows a downtrend for precision and an uptrend for recall rate. In the case of $F1$, it reaches the peak $4.18\%$ when recommending 21 researchers. We also see the evidence of this, when making most potential collaborators recommendation, ACRec performs similarly to CNRec.
 
 In a nutshell, CCRec outperforms ACRec and CNRec with higher precision, recall and $F1$ on making the most potential collaborators. We analyzed the theory. Each researcher is represented by the feature vector, as well as CCRec model combines publications contents and collaboration networks to define the vector, which has distinct advantages (e.g. rich information, more accurately to represent researchers' feature) in recommending new collaborators.
 
-% =============================================================================
 \subsection{Impact of clustered Domains number}
-% =============================================================================
-In this section, we exploit the impact of clustered domains number.
+% -----------------------------------------------------------------------------
+In this section, we exploit the impact of clustered domains number on the performance of CCRec. We adopted the following experiment settings. 1, Evaluating how the $F1$ change with the number of collaborators recommended. 2, Make the most potential collaborators recommendation for those 100 researchers selected above. 3, Recommend 21 candidate collaborators for each researcher. Fig. 4 shows the experimental results.
 
+\begin{figure}
+\centering
+\includegraphics [width=3.4in]{Fig4}
+\caption{The impact of clustered domains number on CCRec}
+\end{figure}
+
+In terms of Fig. 4, the number of clustered domains does have certain effect on the performance of CCRec. If the number of clustered domains is appropriate, the $F1$ score can get some enhancement. In this scenario, when cluster the data mining academia into 300 or 500 domains, CCRec performs best on $F1$, which reach to $4.18\%$.
+
+In summary, we can still claim that the works on combining the content and networks is really effective. Moreover, our approaches works well. In terms of precision, recall and $F1$, CCRec outperforms ACRec and CNRec on making most potential collaborators recommendation for academic researchers.
 % =============================================================================
 \section{Conclusions}
 % =============================================================================
