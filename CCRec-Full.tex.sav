@@ -106,97 +106,102 @@ The remainder of the paper is structured as follows. Section 2 briefly presents 
 % =============================================================================
 \section{RELATED WORK}
 % =============================================================================
-Social networks have been researched for decades to exploit the relationships and interactions between people. There is also a sample system helping people find experts on a certain topic. While summarizing the preterit work, researches mainly focus on three parts including content-based method, social networks-based method and minority hybrid method. For the first two methods, many practical examples have confirmed it, but fewer researches have done for the hybrid method. 
-
-
+Social networks have been researched for decades to exploit the relationships and interactions between people. There is also a sample system helping people find experts on a certain topic. While summarizing the preterit work, researches mainly focus on three parts including content-based method, social networks-based method and minority hybrid method. For the first two methods, many practical examples have confirmed it, but fewer researches have done for the hybrid method.
+Many approaches have been presented to formalize academic collaboration recommendation as a link prediction problem. Link prediction is to predict new links that might be added to the social networks, which is useful for collaborator recommendation, but differs from it in that the latter is context-based. David et al. first defined link prediction: to predict the edges that will be added to the network in the future time t' at the time of t in a social network. Some of these approaches have been applied to large social networks and results show a good performance. Lichtenwalter et al. examined some important factors for link prediction and proposed a general framework. 
+For content-based method, the CollabSeer system recommends collaborators for a researcher, which a an open system introduced by Chen et al. considering research interests for collaborators recommendation. Lopes et al. considered researchers' publications area and the vector space model to make collaboration recommendation. Pavlov and Ichise extracted structural attributes from graph of past collaborations and 
+Ma et al. analysed how social networks information can benefit recommender systems and proposed a method improving the performance of recommender systems by incorporating social network information. In addition, Lopes et al. present a novel method for recommending new collaborators and identifying existing collaborations. They took the semantic issues involved in the relationships among researchers in different areas.
 % =============================================================================
 \section{DESIGN OF CCRec}
 % =============================================================================
-Our proposed design scheme for CCRec is inspired by the reality and truth that a researcher usually desires to know other researchers who have similar research interests and high academic value. As mentioned above, researchers often behave differently across multiple domains of interests. Such behaviors usually reveal academic features of different researchers in different domains. Besides, as the RWR model has been proved to be competent for calculating the rank score of node in social networks derived from the co-authorship, researchers' academic value can be well reflected by RWR. In this work, we proposed a content-based method to acquire multiple domains of interests. Furthermore, we define the *** to represent the academic values (Rank Score) of researchers in different domains, witch can be regard as the elements of feature vector of researchers. Finally,we use the feature vector to evaluate the similarity of researchers and then obtain the recommendation list.
+Our proposed design scheme for CCRec is inspired by the reality and truth that a researcher usually desires to know other researchers who have similar research interests and strong influence in academia. As mentioned above, researchers often behave differently across multiple domains of interests. Such behaviors usually reveal academic features of different researchers in different domains. Besides, as a social-based model, the RWR model has been proved to be competent for calculating the rank score of node in social networks derived from the co-authorship \cite{li2014acrec}, researchers' strength of influence in specific domains can be well reflected by RWR. In this work, we adopt a content-based method to acquire multiple domains of interests. and use RWR to measure the researchers' strength of influence in different domains. After that, We use the feature vector to evaluate the similarity of researchers and then obtain the recommendation list. The detailed process is described bellow and the corresponding pseudo-code is illustrated in Algorithm 1. Figure 1 depicts the three components of CCRec.
 
+%Initially,
 
-In this work, we define the DoI and SoI for researchers in different domains. Furthermore, we use the feature vector combined by DoI and SoI to evaluate the similarity of researchers and then obtain the recommendation list.
-
-%proposed a content based method to measure the "attention-degree" of researchers on different domains by parsing papers' title, and a graph based method to measure the %"influence-strength" by analysis the coauthor networks. Additionally, we merge the two metrics into "membership-degree" to measure the researchers academic interest feature. Finally, %we make a TopN recommendation based on the similarity of researchers' membership-degree vectors.
-
+%In this work, we proposed a content-based method to acquire multiple domains of interests. Furthermore, we define the SoI (Strength of Influence) to denote the %academic values (Rank Score) of researchers in different domains, which can be regarded as the elements of feature vector of researchers. Finally,we use the %feature vector to evaluate the similarity of researchers and then obtain the recommendation list.
+%Topic clustering and researcher partition distribute researchers according to multiple domains.
 \begin{figure}
 \centering
 \includegraphics [width=3.4in]{Fig1.pdf}
 \caption{The architecture diagram of CCRec model}
 \end{figure}
-
-Figure 1 depicts the three components of CCRec. Topic clustering and researcher partition distribute researchers according to multiple domains and acquire a DoI for each researcher. Topic-sensitive random walk calculates the SoI in each domain, and the TopN recommendation provides the recommendation list.
-
 \subsection{Topic Clustering and Researcher Partition}
 % -----------------------------------------------------------------------------
-In CCRec, topic clustering and researcher partition generate various domains and map all researchers into these domains. Initially, CCRec extracts keywords from titles of all the papers for each researcher, and filters out some irrelevant words, e.g. "of","the", "and", etc. As core contents in a paper, preprocessed keywords in CCRec are signified as valuable and reliable data in a variety of academic topics. We use word2vec, a famous tool of NLP (Natural Language Processing) to cluster the keywords into various domains. Then, if some keywords of a researcher belong to a domain, we will partition the researcher to that particular domain. We emphasize that one researcher always belongs to several domains and there are also many researchers in one domain.
+It is a content-based method for topic clustering and researcher partition, which generates various domains and maps all researchers into these domains. In this work, we use a famous tool of NLP (Natural Language Processing), word2vec, which provides an efficient implementation of the continuous of \emph{bag-of-words} and \emph{skip-gram} architectures for computing vector representations of words. It takes a text corpus as input and produces the word vectors as output. The resulting word vector file can be used as features in many natural language processing and machine learning applications. The word vectors can be also used for deriving word classes from huge data sets. This is achieved by performing K-means clustering on top of the word vectors. The output is a vocabulary file with words and their corresponding class IDs. In case of CCRec model, the input data is a set of titles from all the papers created by each researcher. The titles are split in many sequential words. In addition,  there is a necessary to filter out some irrelevant words, e.g. "of","the", "and", etc. For extracting from titles, this set of preprocessed words can outline the core contents of papers, which are signified as valuable and reliable corpus to denote a variety of academic topics. With this English corpus,word2vec obtains various domains and cluster the word into the domains.
+
+In addition, CCRec partitions researchers to particular domains with follows method. 1, Extract mesh terms from a researcher's publications. 2, Traverse all the terms and check the word vector. The model will tag the researcher to the particular domains which contains these domains. It should be emphasized that one researcher always belongs to several domains and there are also many researchers in one domain.
 
 \subsection{Feature Vector Calculation}
 % -----------------------------------------------------------------------------
-To measure the distribution of researchers' interests, we define DoI as researcher's proportion of interest in one domain:
-\begin{equation}
-DoI_{s,d}=\frac{N_{d}}{\sum_{k=1}^{n} N_{k}}
-\end{equation}
-where $N_{d}$ is the number of keywords of researcher $s$ in domain $d$. It is a content-based method that utilizes the information on the titles of researchers' publications.
-
-We define SoI as researcher's strength of influence in one domain, which is measured by a topic-sensitive random walk method based on collaboration networks. The core equation of the random walk method is shown below:
+As mentioned in section 2, in general, researchers devote to several adjacent domains. But in the case of attention and strength of influence in various domains, they are offering some biases. To measure the distribution of researchers' interest, we define the $SoI$ (Strength of Influence) to denote the academic values (Rank Score) of researchers in different domains, which can be regarded as the elements of feature vector of researchers. In case of one of the domains, there are numerous researchers with similar research interest. Their co-author relationships can be modeled by a network. Thus, there are many co-author networks corresponding to different domains. The $SoI$ is measured by RWR model based on the co-author networks. The core equation of the RWR model is shown below:
 \begin{equation}
 R_{d}^{(t+1)}=\alpha \mathbf{S}R_{d}^{(t)}+(1-\alpha)q
 \end{equation}
-where $R_{d}$ represents the rank score vector of all researchers in domain $d$, $q$ is the initial vector $R^0$, and $\alpha$ denotes the damping coefficient. Random walk is an iterative process. After limited iterations, the vector $R$ will be convergent. The vector item in this scenario is defined as SoI. We therefore obtain SoI through $SoI_{s}=R_{d,s}$.
+where $R_{d}$ represents the rank score vector of all researchers in domain $d$, $q$ is the initial vector $R^0$, and $\alpha$ denotes the damping coefficient. RWR is an iterative process. After limited iterations, the vector $R$ will be convergent. In this scenario, $SoI_{s}=R_{d,s}$. That is, the final value of the vector item $R_{d,s}$ is the $SoI$ of researcher $s$. 
 
-To be more specific, we define feature vector $F$ by combining $DoI$ and $SoI$, which measures the academic feature of researchers in various domains.
 
-\begin{equation}
-F_{s,d}=DoI_{s}*SoI_{s}
-\end{equation}
+In addition, with the help of RWR, The $SoI$s in various domains are quantified for each researcher. To measure researchers academic feature, we define the vector $F$ with $SoI$.
 
 \subsection{Collaboration Recommendation by Feature Vector Similarity}
 % -----------------------------------------------------------------------------
-In CCRec, the academic features of researchers are measured by the feature vector $F$. We use a \emph{cosine similarity} method to compute the similarity of these feature vectors, and further compute the similarity between researchers.
+CCRec recommend collaborators for researchers based on their similarities. To measure the academic features similarity of researchers, we borrow a standard method, \emph{cosine similarity} (CS). CS is employed to define the similarity between two users $s_{1}$ and $s_{2}$ based on their feature vectors $F_{s_{1}}$ and $F_{s_{2}}$.
 \begin{equation}
 Sim(s_{1},s_{2})=\frac{\sum_{i=1}^{n}(F_{s_{1},i}*F_{s_{2},i})}{\sqrt{\sum_{i=1}^{n}F_{s_{1},i}^2}*\sqrt{\sum_{i=1}^{n}F_{s_{2},i}^2}}
 \end{equation}
-
-Finally, CCRec recommends potential academic collaborators to researchers who have common interests and high similarities, by providing a TopN recommendation list for each researcher in the network.
+Finally, we consider that researchers with high similarities have common interest, they should be recommended to each other as potential academic collaborators. Hence, CCRec provide a TopN recommendation list for each researcher.
 
 % =============================================================================
 \section{Evaluation and Analysis}
 % =============================================================================
-We conduct various experiments using data from DBLP \cite{Ley:DBLP}, a computer science bibliography website hosted at University Trier. We extracted the subsets of the entire data using the required information, witch are all in the field of data mining involving 34 journals and 49 conferences. The data was modeled by an academic social network, witch contains 59659 nodes (authors) and 90282 edges (coauthor relations). We divided the data set into two parts: the data before year 2011 as a training set, and others as a testing set.To evaluate the performance of CCRec model, we use three metrics widely used in the recommender systems, \emph{Precision}, \emph{Recall} and \emph{F1} \cite{shani2011evaluating}.
+We conduct various experiments using data from DBLP \cite{Ley:DBLP}, a computer science bibliography website hosted at University Trier. We extracted the subsets of the entire data using the required information, which are all in the field of data mining involving 34 journals and 49 conferences. The data was modeled by an academic social network, which contains 59659 nodes (authors) and 90282 edges (coauthor relations). We divided the data set into two parts: the data before year 2011 as a training set, and others as a testing set.
+
+We embarked on benchmarking experiments on CCRec. To evaluate the performance of CCRec model in a better way, we use three metrics which are widely used in the recommender systems, \emph{Precision}, \emph{Recall} and \emph{F1} \cite{shani2011evaluating}. We compared CCRec with the two following approaches. ACRec: a random walk recommendation model based on collaboration networks \cite{li2014acrec}. CNRec: a common neighbors based recommendation model \cite{lopes2010collaboration}. Three groups of experiments were conducted. 1, Find the most valuable collaborators, who may have known each other before, or active in adjacent circles. 2, Recommend most potential collaborators, who have never cooperated with the target researcher before. 3, Evaluate how domains clustering impact the performance of CCRec.
 
 All experiments were performed on a 64-bit Linux-based operation system, Ubuntu 12.04 with a 4-duo and 32GHz Intel CPU, 4-G Bytes memory. All the programs are implemented with Python.
+
+% =============================================================================
+\subsection{Most Valuable Collaborators Recommendation}
+% =============================================================================
+In our previous work \cite{li2014acrec}, We proposed the ACRec model to make the most valuable collaborators for researchers. In this section, we explored the performance of CCRec and ACRec on making most valuable collaborators recommendation. The comparative results are shown in Fig. 2.
 
 \begin{figure*}
 \centering
 \subfigure[Precision]{
 \label{fig:2-a}
 \includegraphics[width=0.32\textwidth]{Fig2-a.png}}
-\subfigure[Recall Rate]{
+\subfigure[Recall]{
 \label{fig:2-b}
 \includegraphics[width=0.32\textwidth]{Fig2-b.png}}
 \subfigure[F1]{
 \label{fig:2-c}
 \includegraphics[width=0.32\textwidth]{Fig2-c.png}}
-\caption{Performance of CCRec, RWRec and CNRec}
-\label{fig:5}       % Give a unique label
+\caption{Performance of CCRec and ACRec on most valuable collaborators recommendation}
+\label{fig:2}
 \end{figure*}
+
+As shown in Fig. 2, The number of recommended collaborators have an obvious influence on the metrics with a clear trend. In the case of CCRec, as shown in Fig. 2(a), the precision drops when the number of recommended collaborators is increasing. At the same time, the recall in Fig. 2(b) rise with the growth of recommendation list, which approximate to $20\%$ in the end. As for ACRec, it has the same trend with CCRec on precision and recall. Thus it can be seen, the precision and recall is a pair of contradictory metrics. Weighing the two metrics to maximum the profit, G. Shani et al. \cite{shani2011evaluating} adopt the metric $F1$. Fig. 2(c) describes the performance of CCRec and ACRec on $F1$. In case of CCRec model, the $F1$ generally increase until the number of recommended collaborators is over 15, and then decrease gradually. Since the point 15 is exactly the peak of $F1$. We can see that, CCRec performs best when recommend 15 collaborators to each researchers, and the $F1$ can reach to $6.13\%$. However, in this scenario, ACRec get its' highest $F1$ score $11.01\%$ at point 30.
+
+In terms of Fig. 2, It is  much in evidence that ACRec model outperforms CCRec model on making most valuable collaborators recommendation. This is because, ACRec base on a link-importance guiding random walk, considering the walk distance and rank score, find the most valuable collaborators who may have known each other before, or active in adjacent circles. Thus, comparing with ACRec, there is no obvious advantage for CCRec to find the most valuable collaborators in adjacent circles.
+
+% =============================================================================
+\subsection{Most Potential Collaborators Recommendation}
+% =============================================================================
+We define the Most Potential Collaborators as some collaborators who are worthy enough to be recommended and have never cooperated with the target researcher.
+Making the most potential collaborators recommendation is of great significance as the new collaborators are more meaningful and practical in academia. In this section, we explored the performance of CCRec, ACRec and CCRec on making most valuable collaborators recommendation. The comparative results are shown in Fig. 3.
 
 \begin{figure*}
 \centering
 \subfigure[Precision]{
 \label{fig:3-a}
 \includegraphics[width=0.32\textwidth]{Fig3-a.png}}
-\subfigure[Recall Rate]{
+\subfigure[Recall]{
 \label{fig:3-b}
 \includegraphics[width=0.32\textwidth]{Fig3-b.png}}
 \subfigure[F1]{
 \label{fig:3-c}
 \includegraphics[width=0.32\textwidth]{Fig3-c.png}}
-\caption{Performance of CCRec, RWRec and CNRec}
-\label{fig:5}       % Give a unique label
+\caption{Performance of CCRec, ACRec and CNRec on most potential collaborators recommendation}
+\label{fig:3}       % Give a unique label
 \end{figure*}
-Using a subset of DBLP dataset relevant to data mining, we embarked on benchmarking experiments to evaluate the performance of CCRec. We took the year 2011 as the partition time of training and testing sets. To evaluate our model in a better way, we compared CCRec with the two following approaches. RWRec: a random walk recommendation model based on collaboration networks. CNRec: a common neighbors based recommendation model \cite{lopes2010collaboration}. We adopted three metrics to evaluate the performance of CCRec: precision, recall rate and F1. We recommend the new collaborators who never cooperated with the target researcher, because the new collaborators are more meaningful and practical in academia.
 
 Figure 2 shows the performance of CCRec, RWRec and CNRec in terms of precision, recall rate and F1 with the number of recommended collaborators increasing. It can be observed that CCRec significantly outperforms RWRec and CNRec all the time in these three metrics. CCRec shows a downtrend for precision and an uptrend for recall rate. In the case of F1, it reaches the peak 6.598\% when recommending 18 researchers.
 

@@ -116,7 +116,6 @@ For content-based method, the CollabSeer system recommends collaborators for a r
 Ma et al. analysed how social networks information can benefit recommender systems and proposed a method improving the performance of recommender systems by incorporating social network information. In addition, Lopes et al. present a novel method for recommending new collaborators and identifying existing collaborations. They took the semantic issues involved in the relationships among researchers in different areas. Barabasi et al. analysed the basic network properties of academic social networks in terms of degree distribution, average separation, clustering coefficient, average degree and so on. In another study, Newman researched a number of statistical properties of scientific collaboration networks like the number of papers, numbers of collaborators and degree of clustering in the networks, etc.
 
 Lee et al. studied how well content-based, social networks-based and hybrid recommendation algorithms predicted coauthor relationship, and the result show that a hybrid algorithm combining content and social networks information outperformed better.
-
 % =============================================================================
 \section{DESIGN OF CCRec}
 % =============================================================================
@@ -145,6 +144,7 @@ As mentioned in section 2, in general, researchers devote to several adjacent do
 R_{d}^{(t+1)}=\alpha \mathbf{S}R_{d}^{(t)}+(1-\alpha)q
 \end{equation}
 where $R_{d}$ represents the rank score vector of all researchers in domain $d$, $q$ is the initial vector $R^0$, and $\alpha$ denotes the damping coefficient. RWR is an iterative process. After limited iterations, the vector $R$ will be convergent. In this scenario, $SoI_{s}=R_{d,s}$. That is, the final value of the vector item $R_{d,s}$ is the $SoI$ of researcher $s$.
+
 
 In addition, with the help of RWR, The $SoI$ in various domains is quantified for each researcher. To measure researchers academic feature, we define the vector $F$ with $SoI$.
 
