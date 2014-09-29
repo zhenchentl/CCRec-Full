@@ -77,7 +77,7 @@ one who did all the really hard work.}\\
 
 \maketitle
 \begin{abstract}
-Due to the expansion of academic research in diverse fields, the problem of finding relevant and potential collaborators has become cumbersome. In this work, we propose an academic collaboration recommendation model called CCRec. CCRec combines publication contents with collaboration networks to effectively generate academic collaboration recommendation for researchers. Using the DBLP data sets, we conduct benchmarking experiments to examine the performance of CCRec. Our preliminary experimental results show that CCRec outperforms other state-of-the-art methods especially in addressing the topic drift problems.
+In academia, studies show that researchers are usually prolific by well collaboration with collaborators. However, due to the expansion of academic research in diverse domains, the problem of finding most relevant and potential collaborators from a large volume of big scholarly data has become cumbersome and time-consuming. In this work, we propose an academic collaborators recommendation model called CCRec, an innovative model that combines publication contents with collaboration networks. A topic clustering model and a random walk model are adopted to help to effectively find the most potential collaborators for researchers. Using the DBLP data sets, we conduct benchmarking experiments to examine the performance of CCRec. Our preliminary experimental results show that CCRec outperforms other state-of-the-art methods in precision, recall and $F1$ score, additionally in addressing the topic drift problems.
 \end{abstract}
 
 % A category with the (minimum) three required fields
@@ -235,9 +235,9 @@ In summary, we can still claim that the model combining content-based method and
 % =============================================================================
 \section{Conclusions}
 % =============================================================================
-The conclusions we reach are: 1) CCRec outperforms RWRec and CNRec in precision, recall rate and F1 integrating publication contents with academic collaboration networks. 2) With topic clustering, the problem of topic drift has been well solved.
+In this paper, we focused on how to find researchers' MPCs based on big scholarly data which is necessary in current academia. To this end, we proposed a novel model named CCRec, by combining the features of publications content and collaboration networks. A topic clustering model and A random walk model are adopted to represent the scholars features, and make MPCs recommendation for researchers. We conducted extensive experiments on a subset of DBLP data set to evaluate the performance of CCRec. We also conducted the ACRec and CNRec on the data set as comparisons. The experimental results show that, CCRec outperforms ACRec and CNRec in precision, recall and $F1$ score. With employing topic clustering model, the problem of topic drift has been solved to some extent.
 
-Our research on CCRec reveals that the combination of information regarding publication contents and collaboration networks of researchers can improve the generation of effective academic collaborations.
+Our research on CCRec reveals that the combination of information regarding publication contents and collaboration networks of researchers can improve the generation of effective academic collaborations. Nonetheless, there is still room for future study in this direction. We extracted the titles of publications as the corpus of topic clustering model, which are not more comprehensive than the abstract and main body of publications. Besides, an exactly metric should be confirmed to evaluate the topic drift problem. As a future work, more experiments and studies should be conducted.
 
 \section{Acknowledgments}
 
