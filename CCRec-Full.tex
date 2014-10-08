@@ -1,4 +1,4 @@
-\documentclass{acm_proc_article-sp}
+\documentclass[review]{elsarticle}
 \usepackage{graphicx}
 \usepackage{amsmath}
 \usepackage{enumerate}
@@ -14,82 +14,78 @@
 \newcommand{\BREAK}{\State \algorithmicbreak}
 \usepackage{algpseudocode}
 \newtheorem{problem}{\textbf{Problem}}
+\usepackage{lineno,hyperref}
+\modulolinenumbers[5]
+
+\journal{Journal of \LaTeX\ Templates}
+
+%%%%%%%%%%%%%%%%%%%%%%%
+%% Elsevier bibliography styles
+%%%%%%%%%%%%%%%%%%%%%%%
+%% To change the style, put a % in front of the second line of the current style and
+%% remove the % from the second line of the style you would like to use.
+%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Numbered
+%\bibliographystyle{model1-num-names}
+
+%% Numbered without titles
+%\bibliographystyle{model1a-num-names}
+
+%% Harvard
+%\bibliographystyle{model2-names.bst}\biboptions{authoryear}
+
+%% Vancouver numbered
+%\usepackage{numcompress}\bibliographystyle{model3-num-names}
+
+%% Vancouver name/year
+%\usepackage{numcompress}\bibliographystyle{model4-names}\biboptions{authoryear}
+
+%% APA style
+%\bibliographystyle{model5-names}\biboptions{authoryear}
+
+%% AMA style
+%\usepackage{numcompress}\bibliographystyle{model6-num-names}
+
+%% `Elsevier LaTeX' style
+\bibliographystyle{elsarticle-num}
+%%%%%%%%%%%%%%%%%%%%%%%
+
 \begin{document}
 
+\begin{frontmatter}
+
 \title{Exploiting Publication Contents and Collaboration Networks for Collaborator Recommendation}
-%\subtitle{
-%[Extended Abstract]
-%\titlenote{A full version of this paper is available as
-%\textit{Author's Guide to Preparing ACM SIG Proceedings Using
-%\LaTeX$2_\epsilon$\ and BibTeX} at
-%\texttt{www.acm.org/eaddress.htm}}}
+%\tnotetext[mytitlenote]{Fully documented templates are available in the elsarticle package on \href{http://www.ctan.org/tex-archive/macros/latex/contrib/elsarticle}{CTAN}.}
 
-\numberofauthors{8}
+%% Group authors per affiliation:
+\author{Elsevier\fnref{myfootnote}}
+\address{Radarweg 29, Amsterdam}
+\fntext[myfootnote]{Since 1880.}
 
-\author{
-% 1st. author
-\alignauthor
-XXX\titlenote{XXX}\\
-       \affaddr{XXX}\\
-       \affaddr{XXX}\\
-       \affaddr{XXX}\\
-       \email{XXX}
-% 2nd. author
-\alignauthor
-XXX\titlenote{XXX}\\
-       \affaddr{XXX}\\
-       \affaddr{XXX}\\
-       \affaddr{XXX}\\
-       \email{XXX}
-% 3rd. author
-\alignauthor
-XXX\titlenote{XXX}\\
-       \affaddr{XXX}\\
-       \affaddr{XXX}\\
-       \affaddr{XXX}\\
-       \email{XXX}
-\and  % use '\and' if you need 'another row' of author names
-% 4th. author
-\alignauthor
-XXX\titlenote{XXX}\\
-       \affaddr{XXX}\\
-       \affaddr{XXX}\\
-       \affaddr{XXX}\\
-       \email{XXX}
-% 5th. author
-\alignauthor
-XXX\titlenote{XXX}\\
-       \affaddr{XXX}\\
-       \affaddr{XXX}\\
-       \affaddr{XXX}\\
-       \email{XXX}
-% 6th. author
-\alignauthor
-XXX\titlenote{XXX}\\
-       \affaddr{XXX}\\
-       \affaddr{XXX}\\
-       \affaddr{XXX}\\
-       \email{XXX}
-}
+%% or include affiliations in footnotes:
+\author[mymainaddress,mysecondaryaddress]{Elsevier Inc}
+\ead[url]{www.elsevier.com}
 
-%\additionalauthors{Additional authors: John Smith (The Th{\o}rv{\"a}ld Group,
-%email: {\texttt{jsmith@affiliation.org}}) and Julius P.~Kumquat
-%(The Kumquat Consortium, email: {\texttt{jpkumquat@consortium.net}}).}
-%\date{30 July 1999}
+\author[mysecondaryaddress]{Global Customer Service\corref{mycorrespondingauthor}}
+\cortext[mycorrespondingauthor]{Corresponding author}
+\ead{support@elsevier.com}
 
-\maketitle
+\address[mymainaddress]{1600 John F Kennedy Boulevard, Philadelphia}
+\address[mysecondaryaddress]{360 Park Avenue South, New York}
+
 \begin{abstract}
 In academia, studies show that researchers are usually prolific by well collaboration with collaborators. However, due to the expansion of academic researches in diverse domains, the problem of finding most relevant and potential collaborators from a large volume of big scholarly data has become cumbersome and time-consuming. In this work, we propose an academic collaborators recommendation model called CCRec to recommend the most potential collaborators, an innovative model that combines content-based method with networks-based method. A topic clustering model and a random walk model are adopted to help effectively seek the most potential collaborators for researchers. Using DBLP data sets, we conduct benchmarking experiments to examine the performance of CCRec. Our preliminary experimental results show that CCRec outperforms other state-of-the-art methods in precision, recall and $F1$ score, additionally in addressing the topic drift problems.
 \end{abstract}
 
-% A category with the (minimum) three required fields
-\category{H.4}{Information Systems Applications}{Miscellaneous}
-%A category including the fourth, optional field follows...
-\category{D.2.8}{Software Engineering}{Metrics}[complexity measures, performance measures]
+\begin{keyword}
+Collaboration recommendation, publication contents, collaboration networks, topic clustering, random walk.
+\end{keyword}
 
-\terms{Theory}
+\end{frontmatter}
 
-\keywords{Collaboration recommendation, publication contents, collaboration networks, topic clustering, random walk.}
+\linenumbers
+
 
 % =============================================================================
 \section{Introduction}
@@ -131,7 +127,7 @@ Our proposed design scheme for CCRec is inspired by the reality and truth that a
 %Topic clustering and researcher partition distribute researchers according to multiple domains.
 \begin{figure}
 \centering
-\includegraphics [width=3.4in]{Fig1.pdf}
+\includegraphics [width=4in]{Fig1.pdf}
 \caption{The architecture diagram of CCRec model}
 \end{figure}
 
@@ -154,7 +150,7 @@ In addition, with the help of RWR, The $SoI$ in various domains is quantified fo
 
 \begin{figure}
 \centering
-\includegraphics [width=3.4in]{Fig5.pdf}
+\includegraphics [width=4in]{Fig5.pdf}
 \caption{Researcher Partition}
 \end{figure}
 
@@ -183,13 +179,13 @@ In our previous work \cite{li2014acrec}, We proposed the ACRec model to make the
 \centering
 \subfigure[Precision]{
 \label{fig:2-a}
-\includegraphics[width=0.32\textwidth]{Fig2-a.eps}}
+\includegraphics[width=0.31\textwidth]{Fig2-a.eps}}
 \subfigure[Recall]{
 \label{fig:2-b}
-\includegraphics[width=0.32\textwidth]{Fig2-b.eps}}
+\includegraphics[width=0.31\textwidth]{Fig2-b.eps}}
 \subfigure[F1]{
 \label{fig:2-c}
-\includegraphics[width=0.32\textwidth]{Fig2-c.eps}}
+\includegraphics[width=0.31\textwidth]{Fig2-c.eps}}
 \caption{Performance of CCRec and ACRec on most valuable collaborators recommendation}
 \label{fig:2}
 \end{figure*}
@@ -206,13 +202,13 @@ We define the Most Potential Collaborators as collaborators who are worthy of be
 \centering
 \subfigure[Precision]{
 \label{fig:3-a}
-\includegraphics[width=0.32\textwidth]{Fig3-a.eps}}
+\includegraphics[width=0.31\textwidth]{Fig3-a.eps}}
 \subfigure[Recall]{
 \label{fig:3-b}
-\includegraphics[width=0.32\textwidth]{Fig3-b.eps}}
+\includegraphics[width=0.31\textwidth]{Fig3-b.eps}}
 \subfigure[F1]{
 \label{fig:3-c}
-\includegraphics[width=0.32\textwidth]{Fig3-c.eps}}
+\includegraphics[width=0.31\textwidth]{Fig3-c.eps}}
 \caption{Performance of CCRec, ACRec and CNRec on most potential collaborators recommendation}
 \label{fig:3}       % Give a unique label
 \end{figure*}
@@ -241,10 +237,8 @@ In this paper, we focused on how to find researchers' MPCs based on big scholarl
 
 Our research on CCRec reveals that the combination of content-based method and networks-based method can improve the generation of effective academic collaborations. Nonetheless, there is still room for future study in this direction. We extracted the titles of publications as the corpus of topic clustering model, which are not more comprehensive than the abstract and main body of publications. Besides, an exactly metric should be confirmed to evaluate the topic drift problem. As future work, more experiments and studies should be conducted.
 
-\section{Acknowledgments}
+\section*{References}
 
-\bibliographystyle{abbrv}
 \bibliography{CCRec-Full}
-\balancecolumns
 
 \end{document}
