@@ -10,6 +10,7 @@
 \usepackage{subfigure}
 \usepackage{algorithm}
 \usepackage{algorithmicx}
+\usepackage{caption}
 \newcommand{\algorithmicbreak}{\textbf{break}}
 \newcommand{\BREAK}{\State \algorithmicbreak}
 \usepackage{algpseudocode}
@@ -119,6 +120,7 @@ In general, collaborators recommender systems are studied in three different per
 
 \emph{hybrid} methods combine content-based and social network-based method to integrate their benefits. Lee et al. \cite{lee2011recommending} exploited how well content-based, social network-based and hybrid recommendation algorithms predict coauthor relationship, and results show that a hybrid algorithm combining content and social networks information performs better. Chen et al. \cite{chen2011collabseer} discussed CollabSeer, an open system to recommend potential research collaborators for scholars and scientists, which discovers collaborators based on the structure of coauthor networks and the user's topic of research interests. Cohen et al. \cite{cohen2013recommending} also worked on solving the collaborators recommendation problem, by combining traditional techniques for structural link prediction in social networks with textual relevancy and global importance metrics.
 
+In summary, hybrid methods have evident superiorities in representing researchers features and making collaborators recommendation. Moreover, the topic drift problems should be well solved when recommend collaborators. In this paper, We proposed CCRec model, which combined content-based and social network-based method, to discovery the MPCs in academic social networks.
 % =============================================================================
 \section{DESIGN OF CCRec}
 % =============================================================================
@@ -129,6 +131,34 @@ Our proposed recommendation scheme for CCRec is inspired by the reality and trut
 \includegraphics [width=4in]{Fig1.pdf}
 \caption{The architecture diagram of CCRec model}
 \end{figure}
+
+\begin{algorithm}[H]
+  \captionof{algorithm}{CCRec(D)}
+  \begin{algorithmic}[1]
+  \State $SoI \leftarrow Init()$
+  \For {$d$ in $D$} // Traverse domains set $D$.
+        \State $\mathbf{S} \leftarrow ComputeTransferMatrix(d)$
+        \State $SoI_{d,0}, R, Q \leftarrow InitVec()$
+        \For {$k \leftarrow 0$~to~$MaxIteration-1$}
+            \State $diff \leftarrow 0$
+            \For {$i \leftarrow 0$~ to~$len(Q)-1$}
+                \State $SoI_{d,k_{i}} = \alpha\sum_{j=0}^{len(Q)} S_{i,j}SoI_{d,j}+(1-\alpha) Q_{i}$
+                \State $diff \leftarrow diff +(SoI_{d,k}-SoI_{d,k-1})$
+            \EndFor
+            \If {$diff<MinDelta$}
+                \BREAK
+            \EndIf
+        \EndFor
+  \EndFor
+  \For {$p_{1}$ in $P$}
+        \For {$p_{2}$ in $P$}
+            \State $Similarity_{p_{1},p_{2}} \leftarrow CosSim(SOI_{p_{1},p_{2}})$
+        \EndFor
+  \EndFor
+  \State RecommendTopN()
+  \end{algorithmic}
+\end{algorithm}
+
 
 \subsection{Topic Clustering and Researcher Partition}
 % -----------------------------------------------------------------------------
@@ -149,7 +179,7 @@ In addition, with the help of RWR, the $SoI$ in various domains is quantified fo
 
 \begin{figure}
 \centering
-\includegraphics [width=4in]{Fig5.pdf}
+\includegraphics [width=4in]{Fig2.pdf}
 \caption{Researcher Partition}
 \end{figure}
 
@@ -172,21 +202,21 @@ All experiments were performed using a 64-bit Linux-based operation system, Ubun
 
 \subsection{Most Valuable Collaborators Recommendation}
 % -----------------------------------------------------------------------------
-In our previous work \cite{li2014acrec}, We proposed an ACRec model which generates the most valuable collaborators recommendation for researchers. In this section, we analyze the performance of CCRec and ACRec in terms of generating the most valuable collaborators recommendation. The comparative results are shown in Fig. 2.
+In our previous work \cite{li2014acrec}, We proposed an ACRec model which generates the most valuable collaborators recommendation for researchers. In this section, we analyze the performance of CCRec and ACRec in terms of generating the most valuable collaborators recommendation. The comparative results are shown in Fig. 3.
 
 \begin{figure*}
 \centering
 \subfigure[Precision]{
-\label{fig:2-a}
-\includegraphics[width=0.31\textwidth]{Fig2-a.eps}}
+\label{fig:3-a}
+\includegraphics[width=0.31\textwidth]{Fig3-a.eps}}
 \subfigure[Recall]{
-\label{fig:2-b}
-\includegraphics[width=0.31\textwidth]{Fig2-b.eps}}
+\label{fig:3-b}
+\includegraphics[width=0.31\textwidth]{Fig3-b.eps}}
 \subfigure[F1]{
-\label{fig:2-c}
-\includegraphics[width=0.31\textwidth]{Fig2-c.eps}}
+\label{fig:3-c}
+\includegraphics[width=0.31\textwidth]{Fig3-c.eps}}
 \caption{Performance of CCRec and ACRec on most valuable collaborators recommendation}
-\label{fig:2}
+\label{fig:3}
 \end{figure*}
 
 As shown in Fig. 3, The number of recommended collaborators has an obvious influence on the metrics with a clear trend. In the case of CCRec, as shown in Fig. 3(a), the precision drops when the number of recommended collaborators is increasing. At the same time, the recall in Fig. 3(b) rises with the increase of recommendation list, which finally approximates to $20\%$. In the case of ACRec, it has the same trend with CCRec in terms of precision and recall. Thus it can be verified that precision and recall are a pair of contradictory metrics. In order to weigh the two metrics to maximize profit, G. Shani et al. \cite{shani2011evaluating} adopted the metric $F1$. Fig. 3(c) describes the performance of CCRec and ACRec on $F1$. In case of CCRec model, $F1$ generally increases until the number of recommended collaborators is over 15, and then decreases gradually. Since point 15 is exactly the peak of $F1$. We can see that, CCRec performs best when recommending 15 collaborators to each researcher, and the $F1$ can reach $6.13\%$. However, in this scenario, ACRec gets its' highest $F1$ score $11.01\%$ at point 30.
@@ -200,19 +230,19 @@ We define the Most Potential Collaborators as collaborators who are worthy of be
 \begin{figure*}
 \centering
 \subfigure[Precision]{
-\label{fig:3-a}
-\includegraphics[width=0.31\textwidth]{Fig3-a.eps}}
+\label{fig:4-a}
+\includegraphics[width=0.31\textwidth]{Fig4-a.eps}}
 \subfigure[Recall]{
-\label{fig:3-b}
-\includegraphics[width=0.31\textwidth]{Fig3-b.eps}}
+\label{fig:4-b}
+\includegraphics[width=0.31\textwidth]{Fig4-b.eps}}
 \subfigure[F1]{
-\label{fig:3-c}
-\includegraphics[width=0.31\textwidth]{Fig3-c.eps}}
+\label{fig:4-c}
+\includegraphics[width=0.31\textwidth]{Fig4-c.eps}}
 \caption{Performance of CCRec, ACRec and CNRec on most potential collaborators recommendation}
-\label{fig:3}       % Give a unique label
+\label{fig:4}       % Give a unique label
 \end{figure*}
 
-Figure 4 shows the performance of CCRec, ACRec and CNRec in terms of precision, recall and $F1$ with the number of recommended collaborators increasing. It can be observed that CCRec significantly outperforms ACRec and CNRec all the time on these three metrics. CCRec shows a downwards trend for precision and an upwards trend for recall rate. In the case of $F1$, it reaches a peak of $4.18\%$ when recommending 21 researchers. From Fig. 3, it is also evident that in relation to the generation of the most potential collaboration recommendations, ACRec outperforms CCRec in terms of the evaluation metrics we utilized.
+Figure 4 shows the performance of CCRec, ACRec and CNRec in terms of precision, recall and $F1$ with the number of recommended collaborators increasing. It can be observed that CCRec significantly outperforms ACRec and CNRec all the time on these three metrics. CCRec shows a downwards trend for precision and an upwards trend for recall rate. In the case of $F1$, it reaches a peak of $4.18\%$ when recommending 21 researchers. From Fig. 4, it is also evident that in relation to the generation of the most potential collaboration recommendations, ACRec outperforms CCRec in terms of the evaluation metrics we utilized.
 
 In a nutshell, CCRec outperforms ACRec and CNRec with higher precision, recall and $F1$ on making the most potential collaborators. Each researcher is represented by the feature vector, as well as CCRec model which combines publications contents and collaboration networks to define the vector. Such a procedure has distinct advantages (e.g. rich information, more accurately to represent researchers' feature) in recommending new collaborators.
 
@@ -223,21 +253,21 @@ In this section, we exploit the impact of clustered domains number on the perfor
 \begin{figure*}
 \centering
 \subfigure[Precision]{
-\label{fig:6-a}
-\includegraphics[width=0.31\textwidth]{Fig6-a.eps}}
+\label{fig:5-a}
+\includegraphics[width=0.31\textwidth]{Fig5-a.eps}}
 \subfigure[Recall]{
-\label{fig:6-b}
-\includegraphics[width=0.31\textwidth]{Fig6-b.eps}}
+\label{fig:5-b}
+\includegraphics[width=0.31\textwidth]{Fig5-b.eps}}
 \subfigure[F1]{
-\label{fig:6-c}
-\includegraphics[width=0.31\textwidth]{Fig6-c.eps}}
+\label{fig:5-c}
+\includegraphics[width=0.31\textwidth]{Fig5-c.eps}}
 \caption{The impact of clustered domains number on CCRec}
-\label{fig:6}
+\label{fig:5}
 \end{figure*}
 
 \begin{figure}
 \centering
-\includegraphics [width=3.4in]{Fig4.eps}
+\includegraphics [width=3.4in]{Fig6.eps}
 \caption{The impact of clustered domains number on CCRec}
 \end{figure}
 
