@@ -196,6 +196,17 @@ Finally, we consider that researchers with high similarities have common interes
 % =============================================================================
 We conduct various experiments using data from DBLP \cite{Ley:DBLP}, a computer science bibliography website hosted at University of Trier, Germany. We extracted the subsets of the entire data using the required information, which are all in the field of data mining involving 34 journals and 49 conferences. The data was modeled by an academic social network, which contains 59659 nodes (authors) and 90282 edges (coauthor relations). We divided the data set into two parts: the data before year 2011 as a training set, and others as a testing set.
 
+\begin{table}
+\renewcommand{\arraystretch}{1.2}
+\centering
+\caption{Statistics of Data Set from DBLP}
+\begin{tabular}{|c|c|c|c|c|} \hline
+Statistics &Nodes&Edges&Average Degree&words\\ \hline
+Number & 59659 &90282 &1.513 &104587\\
+\hline\end{tabular}
+\end{table}
+
+
 We embarked on benchmarking experiments involving CCRec. To evaluate the performance of CCRec model in a better way, we employ three metrics which are widely used in the recommender systems, \emph{Precision}, \emph{Recall} and \emph{F1} \cite{shani2011evaluating}. We compared CCRec with the two following approaches. ACRec: a random walk recommendation model based on collaboration networks \cite{li2014acrec}. CNRec: a common neighbors based recommendation model \cite{lopes2010collaboration}. Four groups of experiments were conducted. These include: (1) Find the most valuable collaborators, who may have known each other before, or be active in adjacent circles, (2) Recommend most potential collaborators, who have never cooperated with the target researcher before, (3) Evaluate how domains clustering impact the performance of CCRec and (4) Exploit the impact of clustered domains number on CCRec. For each experiment, we randomly chose 100 constant researchers who are at least somewhat active in academic activities, that is they have co-authored more than 30 person-time with others. We generated collaborators recommendation for these 100 researchers, and then computed the average of precision, recall and $F1$.
 
 All experiments were performed using a 64-bit Linux-based operation system, Ubuntu 12.04 with a 4-duo and 32GHz Intel CPU, 4-G Bytes memory. All the programs were implemented with Python.
