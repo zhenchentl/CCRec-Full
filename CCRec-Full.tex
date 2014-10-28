@@ -206,6 +206,17 @@ Number & 59659 &90282 &1.513 &104587\\
 \hline\end{tabular}
 \end{table}
 
+\begin{figure*}
+\centering
+\subfigure[Number of researchers in each domain]{
+\label{fig:3-a}
+\includegraphics[width=0.48\textwidth]{Fig3-a.eps}}
+\subfigure[Number of domains for each researcher belong to]{
+\label{fig:3-b}
+\includegraphics[width=0.48\textwidth]{Fig3-b.eps}}
+\caption{Statistics of data after topic clustering and researcher partition}
+\label{fig:3}
+\end{figure*}
 
 We embarked on benchmarking experiments involving CCRec. To evaluate the performance of CCRec model in a better way, we employ three metrics which are widely used in the recommender systems, \emph{Precision}, \emph{Recall} and \emph{F1} \cite{shani2011evaluating}. We compared CCRec with the two following approaches. ACRec: a random walk recommendation model based on collaboration networks \cite{li2014acrec}. CNRec: a common neighbors based recommendation model \cite{lopes2010collaboration}. Four groups of experiments were conducted. These include: (1) Find the most valuable collaborators, who may have known each other before, or be active in adjacent circles, (2) Recommend most potential collaborators, who have never cooperated with the target researcher before, (3) Evaluate how domains clustering impact the performance of CCRec and (4) Exploit the impact of clustered domains number on CCRec. For each experiment, we randomly chose 100 constant researchers who are at least somewhat active in academic activities, that is they have co-authored more than 30 person-time with others. We generated collaborators recommendation for these 100 researchers, and then computed the average of precision, recall and $F1$.
 
@@ -218,16 +229,16 @@ In our previous work \cite{li2014acrec}, We proposed an ACRec model which genera
 \begin{figure*}
 \centering
 \subfigure[Precision]{
-\label{fig:3-a}
-\includegraphics[width=0.31\textwidth]{Fig3-a.eps}}
+\label{fig:4-a}
+\includegraphics[width=0.31\textwidth]{Fig4-a.eps}}
 \subfigure[Recall]{
-\label{fig:3-b}
-\includegraphics[width=0.31\textwidth]{Fig3-b.eps}}
+\label{fig:5-b}
+\includegraphics[width=0.31\textwidth]{Fig4-b.eps}}
 \subfigure[F1]{
-\label{fig:3-c}
-\includegraphics[width=0.31\textwidth]{Fig3-c.eps}}
+\label{fig:6-c}
+\includegraphics[width=0.31\textwidth]{Fig4-c.eps}}
 \caption{Performance of CCRec and ACRec on most valuable collaborators recommendation}
-\label{fig:3}
+\label{fig:7}
 \end{figure*}
 
 As shown in Fig. 3, The number of recommended collaborators has an obvious influence on the metrics with a clear trend. In the case of CCRec, as shown in Fig. 3(a), the precision drops when the number of recommended collaborators is increasing. At the same time, the recall in Fig. 3(b) rises with the increase of recommendation list, which finally approximates to $20\%$. In the case of ACRec, it has the same trend with CCRec in terms of precision and recall. Thus it can be verified that precision and recall are a pair of contradictory metrics. In order to weigh the two metrics to maximize profit, G. Shani et al. \cite{shani2011evaluating} adopted the metric $F1$. Fig. 3(c) describes the performance of CCRec and ACRec on $F1$. In case of CCRec model, $F1$ generally increases until the number of recommended collaborators is over 15, and then decreases gradually. Since point 15 is exactly the peak of $F1$. We can see that, CCRec performs best when recommending 15 collaborators to each researcher, and the $F1$ can reach $6.13\%$. However, in this scenario, ACRec gets its' highest $F1$ score $11.01\%$ at point 30.
@@ -241,16 +252,16 @@ We define the Most Potential Collaborators as collaborators who are worthy of be
 \begin{figure*}
 \centering
 \subfigure[Precision]{
-\label{fig:4-a}
-\includegraphics[width=0.31\textwidth]{Fig4-a.eps}}
+\label{fig:5-a}
+\includegraphics[width=0.31\textwidth]{Fig5-a.eps}}
 \subfigure[Recall]{
-\label{fig:4-b}
-\includegraphics[width=0.31\textwidth]{Fig4-b.eps}}
+\label{fig:5-b}
+\includegraphics[width=0.31\textwidth]{Fig5-b.eps}}
 \subfigure[F1]{
-\label{fig:4-c}
-\includegraphics[width=0.31\textwidth]{Fig4-c.eps}}
+\label{fig:5-c}
+\includegraphics[width=0.31\textwidth]{Fig5-c.eps}}
 \caption{Performance of CCRec, ACRec and CNRec on most potential collaborators recommendation}
-\label{fig:4}       % Give a unique label
+\label{fig:5}       % Give a unique label
 \end{figure*}
 
 Figure 4 shows the performance of CCRec, ACRec and CNRec in terms of precision, recall and $F1$ with the number of recommended collaborators increasing. It can be observed that CCRec significantly outperforms ACRec and CNRec all the time on these three metrics. CCRec shows a downwards trend for precision and an upwards trend for recall rate. In the case of $F1$, it reaches a peak of $4.18\%$ when recommending 21 researchers. From Fig. 4, it is also evident that in relation to the generation of the most potential collaboration recommendations, ACRec outperforms CCRec in terms of the evaluation metrics we utilized.
@@ -264,23 +275,17 @@ In this section, we exploit the impact of clustered domains number on the perfor
 \begin{figure*}
 \centering
 \subfigure[Precision]{
-\label{fig:5-a}
-\includegraphics[width=0.31\textwidth]{Fig5-a.eps}}
+\label{fig:6-a}
+\includegraphics[width=0.31\textwidth]{Fig6-a.eps}}
 \subfigure[Recall]{
-\label{fig:5-b}
-\includegraphics[width=0.31\textwidth]{Fig5-b.eps}}
+\label{fig:6-b}
+\includegraphics[width=0.31\textwidth]{Fig6-b.eps}}
 \subfigure[F1]{
-\label{fig:5-c}
-\includegraphics[width=0.31\textwidth]{Fig5-c.eps}}
+\label{fig:6-c}
+\includegraphics[width=0.31\textwidth]{Fig6-c.eps}}
 \caption{The impact of clustered domains number on CCRec}
-\label{fig:5}
+\label{fig:6}
 \end{figure*}
-
-\begin{figure}
-\centering
-\includegraphics [width=3.4in]{Fig6.eps}
-\caption{The impact of clustered domains number on CCRec}
-\end{figure}
 
 According to Fig. 5, the number of clustered domains does have certain effects on the performance of CCRec. If the number of clustered domains is appropriate, the $F1$ score achieves some enhancement. In this situation, when clustering the data mining academia into 300 or 500 domains, CCRec performs best for $F1$, when it reaches $4.18\%$.
 
