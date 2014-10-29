@@ -196,6 +196,8 @@ Finally, we consider that researchers with high similarities have common interes
 % =============================================================================
 We conduct various experiments using data from DBLP \cite{Ley:DBLP}, a computer science bibliography website hosted at University of Trier, Germany. We extracted the subsets of the entire data using the required information, which are all in the field of data mining involving 34 journals and 49 conferences. The data was modeled by an academic social network, which contains 59659 nodes (authors) and 90282 edges (coauthor relations). Moreover, as described in Table 1, the average degree is 1.531, and the number of the keywords is 104587. We divided the data set into two parts: the data before year 2011 as a training set, and others as a testing set.
 
+We embarked on benchmarking experiments involving CCRec. To evaluate the performance of CCRec model in a better way, we employ three metrics which are widely used in the recommender systems, \emph{Precision}, \emph{Recall} and \emph{F1} \cite{shani2011evaluating}. We compared CCRec with the two following approaches. ACRec: a random walk recommendation model based on collaboration networks \cite{li2014acrec}. CNRec: a common neighbors based recommendation model \cite{lopes2010collaboration}. Four groups of experiments were conducted. These include: (1) Find the most valuable collaborators, who may have known each other before, or be active in adjacent circles, (2) Recommend most potential collaborators, who have never cooperated with the target researcher before, (3) Evaluate how domains clustering impact the performance of CCRec. For each experiment, there are 500 domains were clustered which matched to all researchers. we randomly chose 100 constant researchers who are at least somewhat active in academic activities, that is they have co-authored more than 30 person-time with others. We generated collaborators recommendation for these 100 researchers, and then computed the average of precision, recall and $F1$.
+
 \begin{table}
 \renewcommand{\arraystretch}{1.2}
 \centering
@@ -206,13 +208,13 @@ Number & 59659 &90282 &1.513 &104587\\
 \hline\end{tabular}
 \end{table}
 
-We embarked on benchmarking experiments involving CCRec. To evaluate the performance of CCRec model in a better way, we employ three metrics which are widely used in the recommender systems, \emph{Precision}, \emph{Recall} and \emph{F1} \cite{shani2011evaluating}. We compared CCRec with the two following approaches. ACRec: a random walk recommendation model based on collaboration networks \cite{li2014acrec}. CNRec: a common neighbors based recommendation model \cite{lopes2010collaboration}. Four groups of experiments were conducted. These include: (1) Find the most valuable collaborators, who may have known each other before, or be active in adjacent circles, (2) Recommend most potential collaborators, who have never cooperated with the target researcher before, (3) Evaluate how domains clustering impact the performance of CCRec. For each experiment, there are 500 domains were clustered which matched to all researchers. we randomly chose 100 constant researchers who are at least somewhat active in academic activities, that is they have co-authored more than 30 person-time with others. We generated collaborators recommendation for these 100 researchers, and then computed the average of precision, recall and $F1$.
-
 All experiments were performed using a 64-bit Linux-based operation system, Ubuntu 12.04 with a 4-duo and 32GHz Intel CPU, 4-G Bytes memory. All the programs were implemented with Python.
 
 \subsection{Most Valuable Collaborators Recommendation}
 % -----------------------------------------------------------------------------
 In our previous work \cite{li2014acrec}, We proposed an ACRec model which generates the most valuable collaborators recommendation for researchers. In this section, we analyze the performance of CCRec and ACRec in terms of generating the most valuable collaborators recommendation. The comparative results are shown in Fig. 3.
+
+As shown in Fig. 3, The number of recommended collaborators has an obvious influence on the metrics with a clear trend. In the case of CCRec, as shown in Fig. 3(a), the precision drops when the number of recommended collaborators is increasing. At the same time, the recall in Fig. 3(b) rises with the increase of recommendation list, which finally approximates to $20\%$. In the case of ACRec, it has the same trend with CCRec in terms of precision and recall. Thus it can be verified that precision and recall are a pair of contradictory metrics. In order to weigh the two metrics to maximize profit, G. Shani et al. \cite{shani2011evaluating} adopted the metric $F1$. Fig. 3(c) describes the performance of CCRec and ACRec on $F1$. In case of CCRec model, $F1$ generally increases until the number of recommended collaborators is over 15, and then decreases gradually. Since point 15 is exactly the peak of $F1$. We can see that, CCRec performs best when recommending 15 collaborators to each researcher, and the $F1$ can reach $6.13\%$. However, in this scenario, ACRec gets its' highest $F1$ score $11.01\%$ at point 30.
 
 %\begin{figure*}
 %\centering
@@ -235,30 +237,34 @@ In our previous work \cite{li2014acrec}, We proposed an ACRec model which genera
 \caption{Performance of CCRec and ACRec on most valuable collaborators recommendation}
 \end{figure}
 
-As shown in Fig. 3, The number of recommended collaborators has an obvious influence on the metrics with a clear trend. In the case of CCRec, as shown in Fig. 3(a), the precision drops when the number of recommended collaborators is increasing. At the same time, the recall in Fig. 3(b) rises with the increase of recommendation list, which finally approximates to $20\%$. In the case of ACRec, it has the same trend with CCRec in terms of precision and recall. Thus it can be verified that precision and recall are a pair of contradictory metrics. In order to weigh the two metrics to maximize profit, G. Shani et al. \cite{shani2011evaluating} adopted the metric $F1$. Fig. 3(c) describes the performance of CCRec and ACRec on $F1$. In case of CCRec model, $F1$ generally increases until the number of recommended collaborators is over 15, and then decreases gradually. Since point 15 is exactly the peak of $F1$. We can see that, CCRec performs best when recommending 15 collaborators to each researcher, and the $F1$ can reach $6.13\%$. However, in this scenario, ACRec gets its' highest $F1$ score $11.01\%$ at point 30.
-
 A reflection of Fig. 3 substantiates that ACRec outperforms CCRec in terms of generating the most valuable collaborators recommendation. This is because, ACRec is based on the link-importance guiding random walk, which considers the walk distance and rank score and seeks the most valuable collaborators who may have known each other before, or are active in adjacent circles. Thus, compared with ACRec, there is no obvious superiority for CCRec to find the most valuable collaborators in adjacent circles.
 
 \subsection{Most Potential Collaborators Recommendation}
 % -----------------------------------------------------------------------------
 We define the Most Potential Collaborators as collaborators who are worthy of being recommended and have never cooperated with the target researcher. Generating recommendations pertaining to the most potential collaborators is of great significance as the new collaborators are more meaningful and practical in the reality of academia. In this section, we explored the performance of CCRec, ACRec and CCRec on making most valuable collaborators recommendation.
 
-\begin{figure*}
-\centering
-\subfigure[Precision]{
-\label{fig:4-a}
-\includegraphics[width=0.31\textwidth]{Fig4-a.eps}}
-\subfigure[Recall]{
-\label{fig:4-b}
-\includegraphics[width=0.31\textwidth]{Fig4-b.eps}}
-\subfigure[F1]{
-\label{fig:4-c}
-\includegraphics[width=0.31\textwidth]{Fig4-c.eps}}
-\caption{Performance of CCRec, ACRec and CNRec on most potential collaborators recommendation}
-\label{fig:4}       % Give a unique label
-\end{figure*}
-
 Figure 4 shows the performance of CCRec, ACRec and CNRec in terms of precision, recall and $F1$ with the number of recommended collaborators increasing. It can be observed that CCRec significantly outperforms ACRec and CNRec all the time on these three metrics. CCRec shows a downwards trend for precision and an upwards trend for recall rate. In the case of $F1$, it reaches a peak of $4.18\%$ when recommending 21 researchers. From Fig. 4, it is also evident that in relation to the generation of the most potential collaboration recommendations, ACRec outperforms CCRec in terms of the evaluation metrics we utilized.
+
+%\begin{figure*}
+%\centering
+%\subfigure[Precision]{
+%\label{fig:4-a}
+%\includegraphics[width=0.31\textwidth]{Fig4-a.eps}}
+%\subfigure[Recall]{
+%\label{fig:4-b}
+%\includegraphics[width=0.31\textwidth]{Fig4-b.eps}}
+%\subfigure[F1]{
+%\label{fig:4-c}
+%\includegraphics[width=0.31\textwidth]{Fig4-c.eps}}
+%\caption{Performance of CCRec, ACRec and CNRec on most potential collaborators recommendation}
+%\label{fig:4}       % Give a unique label
+%\end{figure*}
+%
+\begin{figure}
+\centering
+\includegraphics [width=4in]{Fig4.eps}
+\caption{Performance of CCRec, ACRec and CNRec on most potential collaborators recommendation}
+\end{figure}
 
 In a nutshell, CCRec outperforms ACRec and CNRec with higher precision, recall and $F1$ on making the most potential collaborators. Each researcher is represented by the feature vector, as well as CCRec model which combines publications contents and collaboration networks to define the vector. Such a procedure has distinct advantages (e.g. rich information, more accurately to represent researchers' feature) in recommending new collaborators.
 
