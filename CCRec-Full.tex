@@ -80,7 +80,7 @@
 \author[mymainaddress]{Haifeng Liu}
 \address[mymainaddress]{Dalian University of Technology, Dalian, China}
 \begin{abstract}
-In academia, previous researches have shown that researchers are usually prolific through effective collaboration. However, due to the expansion of academic research in diverse domains, the problem of finding the most relevant and potential collaborators (MPCs) from a large volume of big scholarly data has become cumbersome and time-consuming. In this work, we propose an academic collaborators recommendation model called CCRec. CCRec is an innovative model that combines content-based and social network-based methods. In order to effectively identify the most potential collaborators for researchers, we adopt a topic clustering model as well as a random walk model. Using DBLP data sets, we conduct benchmarking experiments to examine the performance of CCRec. The experimental results show that CCRec outperforms other state-of-the-art methods in precision, recall and $F1$ score.
+In academia, researchers with the same or similar research direction usually collaborate to discuss scheme, design experiments, write papers, etc. Recently, due to the proliferation of online social networks, it has become conventional for researchers to communicate and collaborate with each other. However, another problem arises. That is, how to find the most relevant and potential collaborators (MPCs) for each researcher. In this work, we propose a novel recommendation model called CCRec, which combines the information on researchers' publications and collaboraiton network to generate better collaborator recommendation. In order to effectively identify the most potential collaborators for researchers, we adopt a topic clustering model to identify the academic domains, as well as a random walk model to compute researchers' feature vectors. Using DBLP data sets, we conduct benchmarking experiments to examine the performance of CCRec. The experimental results show that CCRec outperforms other state-of-the-art methods in precision, recall and $F1$ score.
 \end{abstract}
 
 \begin{keyword}
@@ -95,13 +95,13 @@ Collaboration recommendation, publication contents, collaboration networks, topi
 % =============================================================================
 \section{Introduction}
 % =============================================================================
-The current scale of the Internet has risen beyond the imagination of people due to its rapid development. The Internet has gradually shown its ability of being the main carrier for sharing information. Consequently, how to obtain useful and effective information has become a complex task as a result of information overload. Therefore, recommender systems and techniques immensely help people by providing easier access to the specific resources they really need.
+The current scale of the Internet has risen beyond the imagination of people due to its rapid development. Consequently, how to obtain useful and effective information has become a complex task as a result of information overload. Recommender systems and techniques reduce the problems and immensely help people by providing easier access to the relevant resources they really need.
 
-In academia, cooperation among researchers is of vital necessity. Researches have shown that collaboration is relative to the productivity of a scholar \cite{lee2005impact}. Thus, researchers tend to discover the most potential collaborators (MPCs), as well as reinforce the collaboration with the most valuable collaborators (MVCs). MPCs are some influential scholars who have similar research interests and have never collaborated with before. MVCs are some influential scholars or colleagues who are active and valuable in adjacent circles and collaborated with in the past.
+In academia, collaboration among researchers often occurs and it has been shown that research collaboration has impact on scientific productivity \cite{lee2005impact}. Therefore, collaboration recommendation becomes very necessary and has been attracting more and more researchers in recent years. Generally, collaboration recommendation can be grouped into two classes: 1) recommend the most potential collaborators (MPCs) who have never collaborated with target before (i.e., build new collaborations); 2) recommend the most valuable collaborators (MVCs) who have collaborated with target before (i.e. reinforce old collaborations).
 
-Considering the inherent requirements, a variety of methods relating to collaborators recommendation have been proposed, which involve three main aspects: content-based, social network-based and hybrid recommendation. Some traditional content-based methods extract researchers academic features through tags of interest, user profiles, publications etc. They make collaborators recommendation based on computing interest similarities \cite{lopes2010collaboration,gollapalli2012similar,kim2010collaborative}. However, a researcher shows biasness in various academic domains. Such behaviors usually reveal academic features of researchers in different domains. Thus, it is imperative to consider academic domains when recommending collaborators. Our previous work proposed a social network-based model called ACRec \cite{li2014acrec}, which solved the problem of recommending MVCs. ACRec help scholars to identify the befitting collaborators in their social networks. However, many scientists also initiate collaborations outside of their social networks. It is burdensome and fraught with risk of initiating collaboration with socially unconnected researchers. However, unconnected researchers (MPCs) are more significant to be recommended. What's more, some excellent hybrid models have been introduced in recent years \cite{lee2011recommending,chen2011collabseer,cohen2013recommending}, which have paved the way for many good references.
+Considering the inherent requirements, a variety of methods relating to collaborators recommendation have been proposed, which involve three main aspects: content-based, social network-based and hybrid recommendation. Some traditional content-based methods extract researchers academic features through tags of interest, user profiles, publications etc. They make collaborators recommendation based on computing interest similarities \cite{lopes2010collaboration,gollapalli2012similar,kim2010collaborative}. However, a researcher shows biasness in various academic domains. Such behaviors usually reveal academic features of researchers in different domains. Thus, it is imperative to consider academic domains when recommending collaborators. Our previous work proposed a social network-based model called ACRec \cite{li2014acrec}, which solved the problem of recommending MVCs. ACRec enables the collaborated researchers to collaborate with each other again. However, many scientists also initiate collaborations outside of their social networks. It is burdensome and fraught with risk of initiating collaboration with socially unconnected researchers. However, unconnected researchers (MPCs) are more significant to be recommended. What's more, some hybrid models have been introduced in recent years \cite{lee2011recommending,chen2011collabseer,cohen2013recommending}, which have paved the way for many good references.
 
-In this paper, we propose a novel hybrid model exploiting Publication Contents and Collaboration Networks for Collaborators Recommendation (CCRec). Utilizing a topic clustering model \cite{pan2010research} \cite{pham2011clustering} and a random walk model, CCRec integrates the features of publications contents and collaboration networks. We extract the subject terms from all researchers' publications and cluster these terms into several topics, then distribute researchers to corresponding domains. To represent the feature vectors of each researcher, we run the random walk with restart model (RWR) on each domain, which has been proved to be competent for calculating the rank score of nodes in social networks. After that, the CCRec firstly compute the similarities of researchers' feature vectors and then make a TopN recommendation of MPCs.
+In this paper, we propose a novel hybrid model by exploiting Publication Contents and Collaboration Networks for Collaborators Recommendation (CCRec). Utilizing a topic clustering model \cite{pan2010research} \cite{pham2011clustering} and a random walk model, CCRec integrates the features of publications' contents and collaboration networks. We extract the subject terms from all researchers' publications and cluster these terms into several topics, then distribute researchers to corresponding domains. To represent the feature vectors of each researcher, we run the random walk with restart model (RWR) on each domain, which has been proved to be competent for calculating the rank score of nodes in social networks. After that, the CCRec firstly compute the similarities of researchers' feature vectors and then make a TopN recommendation of MPCs.
 
 In summary, we make the following contributions in this paper. 1) To compute the most potential collaborators recommendation, we develop a model CCRec, which combines the content-based and social network-based methods. By adopting this procedure, our approach is more favourable in terms of achieving remarkable personalized collaborators recommendation. 2) To reveal researchers' academic features in different domains, we present the feature vectors by utilizing a topic clustering model and a random walk model. 3) Finally, we conduct extensive experiments on a subset of DBLP data set to evaluate the performance of CCRec in various scenarios. Moreover, we measured our previous ACRec model and the normal common neighbors-based model (CNRec) for comparison. Promising results are presented and analyzed.
 
@@ -110,7 +110,7 @@ The remainder of the paper is structured as follows. Section 2 briefly presents 
 % =============================================================================
 \section{RELATED WORK}
 % =============================================================================
-Collaboration plays an important role in academic research. A large aspect of work relating to academia focuses on two key issues, reinforcing and discovering collaborators, which are respectively defined as MVCs recommendation and MPCs recommendation in this paper. Lopes et al. \cite{lopes2010collaboration} worked on identifying new partners to execute joint research and enhancing the cooperation of current partners for researchers. Chen et al. \cite{chen2009make} proposed that the purpose of friends recommendation is "Make new friends, but keep the old". Research on enterprise social networking \cite{dimicco2008motivations} shows that users in a corporate context are interested in discovering valuable contacts not yet known to them, or connecting to weak ties, in addition to staying in touch with their close colleagues. Our previous work \cite{li2014acrec} focuses on recommending MVCs for researchers and enhancing the cooperation with colleagues in their academic social networks. In this work, CCRec has an aptitude for discovering new collaborators with high similarity (i.e. MPCs recommendation).
+Collaboration plays an important role in academic research. A large aspect of work relating to academia focuses on two key issues, reinforcing and discovering collaborators, which are respectively defined as MVCs recommendation and MPCs recommendation in this paper. Lopes et al. \cite{lopes2010collaboration} worked on identifying new partners to execute joint research and enhancing the collaboration of current partners for researchers. Chen et al. \cite{chen2009make} proposed that the purpose of friends recommendation is "Make new friends, but keep the old". Research on enterprise social networking \cite{dimicco2008motivations} shows that users in a corporate context are interested in discovering valuable contacts not yet known to them, or connecting to weak ties, in addition to staying in touch with their close colleagues. Our previous work \cite{li2014acrec} focuses on recommending MVCs for researchers and enhancing the collaboration with colleagues in their academic social networks. In this work, CCRec has an aptitude for discovering new collaborators with high similarity (i.e. MPCs recommendation).
 
 In general, collaborators recommender systems are studied in three different perspectives according to methodologies used to perform recommendation: \emph{content-based}, \emph{social network-based} and \emph{hybrid approach}. The related work presented below correlate with these types of models.
 
@@ -118,7 +118,7 @@ In general, collaborators recommender systems are studied in three different per
 
 \emph{Social network-based} methods recommend items considering the structure of social networks or some social factors. Ma et al. \cite{ma2011recommender} analyzed how social network information can benefit recommender systems and proposed a method of improving the performance of recommender systems by incorporating social network information. T. Huynh et al. \cite{huynh2013trend} proposed a method based on a combination of probability theory and graph theory for modeling and analysing co-author networks. They explored similar vertices of potential candidates for collaboration recommendation. Their main contribution involves taking the trend information into considering when computing the similarity of vertices. Many other approaches have been presented to formalize academic collaboration recommendation as a link prediction problem \cite{chen2012discovering} \cite{sun2011co} in social networks. Some of these approaches have been applied to large social networks and results show good performance. Lichtenwalter et al. \cite{lichtenwalter2010new} examined some important factors for link prediction and proposed a general framework, in addition to our previous work \cite{li2014acrec}.
 
-\emph{Hybrid} methods combine content-based and social network-based method to integrate their benefits. Lee et al. \cite{lee2011recommending} exploited how well content-based, social network-based and hybrid recommendation algorithms predict coauthor relationship, and results show that a hybrid algorithm combining content and social networks information performs better. Chen et al. \cite{chen2011collabseer} discussed CollabSeer, an open system to recommend potential research collaborators for scholars and scientists, which discovers collaborators based on the structure of coauthor networks and the user's topic of research interests. Cohen et al. \cite{cohen2013recommending} also worked on solving the collaborators recommendation problem, by combining traditional techniques for structural link prediction in social networks with textual relevancy and global importance metrics.
+\emph{Hybrid} methods combine content-based and social network-based method to integrate their benefits. Lee et al. \cite{lee2011recommending} exploited how well content-based, social network-based and hybrid recommendation algorithms predict coauthor relationship, and results show that a hybrid algorithm combining content and social networks information performs better. Chen et al. \cite{chen2011collabseer} discussed CollabSeer, an open system to recommend potential research collaborators for researchers and scientists, which discovers collaborators based on the structure of coauthor networks and the user's topic of research interests. Cohen et al. \cite{cohen2013recommending} also worked on solving the collaborators recommendation problem, by combining traditional techniques for structural link prediction in social networks with textual relevancy and global importance metrics.
 
 In summary, hybrid methods have evident superiorities in representing researchers features and making collaborators recommendation. Moreover, the topic drift problems should be well solved when recommend collaborators. In this paper, We proposed CCRec model, which combined content-based and social network-based method, to discovery the MPCs in academic social networks.
 % =============================================================================
@@ -129,7 +129,7 @@ Our proposed recommendation scheme for CCRec is inspired by the reality and trut
 \begin{figure}
 \centering
 \includegraphics [width=4in]{Fig1.pdf}
-\caption{The architecture diagram of CCRec model}
+\caption{The architecture of CCRec}
 \end{figure}
 
 \begin{algorithm}[H]
@@ -164,7 +164,7 @@ Our proposed recommendation scheme for CCRec is inspired by the reality and trut
 % -----------------------------------------------------------------------------
 It is a content-based method for topic clustering and researcher partition, which generates various domains and maps all researchers into these domains. In this work, we use a famous tool of Natural Language Processing (NLP) called word2vec, which provides an efficient implementation of the continuous of \emph{bag-of-words} and \emph{skip-gram} architectures for computing vector representations of words. It takes a text corpus as the input and produces the word vectors as the output. The final word vector file can be used as features in many NLP and machine learning applications. The word vectors can be also used for deriving word classes from huge data sets. This is achieved by performing K-means clustering on top of the word vectors. The output is a vocabulary file with words and their corresponding domain IDs. In the case of our CCRec model, the input data is a set of titles from all the papers created by each researcher. The titles are split in many sequential words. In addition, it is necessary to filter out some irrelevant words, e.g. "of", "the", "and", etc. When extracting words from titles, the set of preprocessed words can be used outline the core contents of papers, which are signified as valuable and reliable corpus to denote a variety of academic topics. With this English corpus, word2vec obtains various domains and clusters the words into specific domains.
 
-In addition, CCRec partitions researchers to specific domains through the following methods (i) Extract subject terms from a researcher's publications and (ii) Traverse all the terms and check the word vector. The model tags the researcher for particular domains that contain these subject terms. It should be emphasized that one researcher always belongs to several domains and there are also many researchers in one domain. Fig. 2 illustrates an example. Assuming that CCRec extracts 12 subject terms from the publications titles of researcher $S1$. After topic clustering, we can see that, three of these subject terms are assigned to domain $A$, seven in $B$, and two in $C$. Thus, researcher $S1$ is tagged for domains $A$, $B$ and $C$. Through this method, each domain contains numerous researchers.
+In addition, CCRec partitions researchers to specific domains through the following methods: 1) Extract subject terms from a researcher's publications. 2) Traverse all the terms and check the word vector. The model tags the researcher for particular domains that contain these subject terms. It should be emphasized that one researcher always belongs to several domains and there are also many researchers in one domain. Fig. 2 illustrates an example. Assuming that CCRec extracts 12 subject terms from the publications titles of researcher $S1$. After topic clustering, we can see that, three of these subject terms are assigned to domain $A$, seven in $B$, and two in $C$. Thus, researcher $S1$ is tagged for domains $A$, $B$ and $C$. Through this method, each domain contains numerous researchers.
 
 \subsection{Feature Vector Calculation}
 % -----------------------------------------------------------------------------
@@ -177,13 +177,13 @@ where $R_{d}$ represents the rank score vector of all researchers in domain $d$,
 
 In addition, with the help of RWR, the $SoI$ in various domains is quantified for each researcher. To measure researchers' academic feature, we define the vector $F$ with $SoI$.
 
-\begin{figure}
+\begin{figure}[htb]
 \centering
 \includegraphics [width=4in]{Fig2.pdf}
 \caption{Researcher Partition}
 \end{figure}
 
-\subsection{Collaboration Recommendation by Feature Vector Similarity}
+\subsection{Collaboration Recommendation Based on Feature Vector Similarity}
 % -----------------------------------------------------------------------------
 CCRec recommends collaborators for researchers based on their similarities. To measure the academic feature similarities of researchers, we borrow a standard method, \emph{cosine similarity} (CS). CS is employed to define the similarity between two users $s_{1}$ and $s_{2}$ based on their feature vectors $F_{s_{1}}$ and $F_{s_{2}}$.
 \begin{equation}
@@ -202,9 +202,9 @@ We embarked on benchmarking experiments involving CCRec. To evaluate the perform
 \renewcommand{\arraystretch}{1.2}
 \centering
 \caption{Statistics of Data Set from DBLP}
-\begin{tabular}{|c|c|c|c|c|} \hline
-Statistics &Nodes&Edges&Average Degree&words\\ \hline
-Number & 59659 &90282 &1.513 &104587\\
+\begin{tabular}{|c|c|c|c|} \hline
+Nodes&Edges&Average Degree&words\\ \hline
+59659 &90282 &1.513 &104587\\
 \hline\end{tabular}
 \end{table}
 
@@ -231,7 +231,7 @@ As shown in Fig. 3, The number of recommended collaborators has an obvious influ
 %\label{fig:3}
 %\end{figure*}
 
-\begin{figure}
+\begin{figure}[htb]
 \centering
 \includegraphics [width=4in]{Fig3.eps}
 \caption{Performance of CCRec and ACRec on most valuable collaborators recommendation}
@@ -260,19 +260,19 @@ Figure 4 shows the performance of CCRec, ACRec and CNRec in terms of precision, 
 %\label{fig:4}       % Give a unique label
 %\end{figure*}
 %
-\begin{figure}
+\begin{figure}[htb]
 \centering
 \includegraphics [width=4in]{Fig4.eps}
 \caption{Performance of CCRec, ACRec and CNRec on most potential collaborators recommendation}
 \end{figure}
 
-In a nutshell, CCRec outperforms ACRec and CNRec with higher precision, recall and $F1$ on making the most potential collaborators. Each researcher is represented by the feature vector, as well as CCRec model which combines publications contents and collaboration networks to define the vector. Such a procedure has distinct advantages (e.g. rich information, more accurately to represent researchers' feature) in recommending new collaborators.
+Simply, CCRec outperforms ACRec and CNRec with higher precision, recall and $F1$ on making the most potential collaborators. Each researcher is represented by the feature vector, as well as CCRec model which combines publications contents and collaboration networks to define the vector. Such a procedure has distinct advantages (e.g. rich information, more accurately to represent researchers' feature) in recommending new collaborators.
 
-\subsection{Impact of clustered Domains number}
+\subsection{Impact of Clustered Domains Number}
 % -----------------------------------------------------------------------------
 In this work, we clustered 500 topics based on DBLP data set and matched researchers to different domains. Here we analyzed the statistics of these domains. As described in Fig. 5, in terms of the number of researches in each domain, there are about 56 domains that contain up to 100 researchers, and two domains contain more than 2500 researchers. We can come to conclusion that, various domains show large different in scales. What's more, as shown in Fig. 5(b), most researchers are active in 2 to 20 domains. However, there is no clear standard to make the domains division. The statistics shows inconsistency with different clustering granularity. In this section, we exploit the impact of clustered domains number on the performance of CCRec.
 
-\begin{figure*}
+\begin{figure*}[htb]
 \centering
 \subfigure[Number of researchers in each domain]{
 \label{fig:5-a}
@@ -286,7 +286,7 @@ In this work, we clustered 500 topics based on DBLP data set and matched researc
 
 We adopted the following experiment settings: (1) Evaluate how the precision, recall and $F1$ score change with the number of collaborators recommended, (2) Generate the most potential collaborators recommendation for those 100 researchers selected above and (3) Recommend 21 potential collaborators for each researcher. Fig. 6 shows the experimental results.
 
-\begin{figure*}
+\begin{figure*}[htb]
 \centering
 \subfigure[Precision]{
 \label{fig:6-a}
@@ -307,7 +307,7 @@ In summary, our proposed model, which combines content-based and social network-
 % =============================================================================
 \section{Conclusions}
 % =============================================================================
-In this paper, we focused on how to find researchers' MPCs based on big scholarly data which is necessary in current academia. To this end, we proposed a novel recommendation model called CCRec, by combining the features of publications content and collaboration networks. A topic clustering model and a random walk model were adopted to obtain scholars features, and make MPCs recommendation for researchers. We conducted extensive experiments on a subset of DBLP data set to evaluate the performance of CCRec in comaprison to other state-of-the-art methods: ACRec and CNRec. Our experimental results show that, CCRec outperforms ACRec and CNRec in terms of precision, recall and $F1$ score. Due the the utilization of a topic clustering model, the problem of topic drift in academic research has been solved to some extent.
+In this paper, we focused on how to find researchers' MPCs based on big scholarly data which is necessary in current academia. To this end, we proposed a novel recommendation model called CCRec, by combining the features of publications content and collaboration networks. A topic clustering model and a random walk model were adopted to obtain researchers features, and make MPCs recommendation for researchers. We conducted extensive experiments on a subset of DBLP data set to evaluate the performance of CCRec in comaprison to other state-of-the-art methods: ACRec and CNRec. Our experimental results show that, CCRec outperforms ACRec and CNRec in terms of precision, recall and $F1$ score. Due the the utilization of a topic clustering model, the problem of topic drift in academic research has been solved to some extent.
 
 Our research on CCRec reveals that the combination of content-based and network-based methods can improve the generation of effective academic collaborations. Nonetheless, there is still room for future study in this direction. We extracted the titles of publications as the corpus of the topic clustering model, which are not more comprehensive than the abstract and main body of publications. Additionally, specific evaluation metrics should be utilized to evaluate the topic drift problem. As the future work, more experiments and studies should be conducted.
 
