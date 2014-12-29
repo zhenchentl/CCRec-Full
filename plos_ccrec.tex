@@ -1,78 +1,3 @@
-% Template for PLoS
-% Version 2.0 July 2014
-%
-% To compile to pdf, run:
-% latex plos.template
-% bibtex plos.template
-% latex plos.template
-% latex plos.template
-% dvipdf plos.template
-%
-% % % % % % % % % % % % % % % % % % % % % %
-%
-% -- IMPORTANT NOTE
-%
-% Be advised that this is merely a template
-% designed to facilitate accurate translation of manuscript content
-% into our production files.
-%
-% This template contains extensive comments intended
-% to minimize problems and delays during our production
-% process. Please follow the template
-% whenever possible.
-%
-% % % % % % % % % % % % % % % % % % % % % % %
-%
-% Once your paper is accepted for publication and enters production,
-% PLEASE REMOVE ALL TRACKED CHANGES in this file and leave only
-% the final text of your manuscript.
-%
-% DO NOT ADD EXTRA PACKAGES TO THIS TEMPLATE unless absolutely necessary.
-% Packages included in this template are intentionally
-% limited and basic in order to reduce the possibility
-% of issues during our production process.
-%
-% % % % % % % % % % % % % % % % % % % % % % %
-%
-% -- FIGURES AND TABLES
-%
-% DO NOT INCLUDE GRAPHICS IN YOUR MANUSCRIPT
-% - Figures should be uploaded separately from your manuscript file.
-% - Figures generated using LaTeX should be extracted and removed from the PDF before submission.
-% - Figures containing multiple panels/subfigures must be combined into one image file before submission.
-% See http://www.plosone.org/static/figureGuidelines for PLOS figure guidelines.
-%
-% Tables should be cell-based and may not contain:
-% - tabs/spacing/line breaks within cells to alter layout
-% - vertically-merged cells (no tabular environments within tabular environments, do not use \multirow)
-% - colors, shading, or graphic objects
-% See http://www.plosone.org/static/figureGuidelines#tables for table guidelines.
-%
-% For sideways tables, use the {rotating} package and use \begin{sidewaystable} instead of \begin{table} in the appropriate section. PLOS guidelines do not accomodate sideways figures.
-%
-% % % % % % % % % % % % % % % % % % % % % % % %
-%
-% -- EQUATIONS, MATH SYMBOLS, SUBSCRIPTS, AND SUPERSCRIPTS
-%
-% IMPORTANT
-% Below are a few tips to help format your equations and other special characters according to our specifications. For more tips to help reduce the possibility of formatting errors during conversion, please see our LaTeX guidelines at http://www.plosone.org/static/latexGuidelines
-%
-% Please be sure to include all portions of an equation in the math environment, and for any superscripts or subscripts also include the base number/text. For example, use $mathrm{mm}^2$ instead of mm$^2$ (do not use \textsuperscript command).
-%
-% DO NOT USE the \rm command to render mathmode characters in roman font, instead use $\mathrm{}$
-% For bolding characters in mathmode, please use $\mathbf{}$
-%
-% Please add line breaks to long equations when possible in order to fit our 2-column layout.
-%
-% For inline equations, please do not include punctuation within the math environment unless this is part of the equation.
-%
-% For spaces within the math environment please use the \; or \: commands, even within \text{} (do not use smaller spacing as this does not convert well).
-%
-%
-% % % % % % % % % % % % % % % % % % % % % % % %
-
-
-
 \documentclass[10pt]{article}
 
 % amsmath package, useful for mathematical formulas
@@ -95,7 +20,6 @@
 % rotating package for sideways tables
 %\usepackage{rotating}
 
-% If you wish to include algorithms, please use one of the packages below. Also, please see the algorithm section of our LaTeX guidelines (http://www.plosone.org/static/latexGuidelines) for important information about required formatting.
 %\usepackage{algorithmic}
 \usepackage{algorithm}
 \usepackage{algorithmicx}
@@ -105,9 +29,6 @@
 % Use doublespacing - comment out for single spacing
 %\usepackage{setspace}
 %\doublespacing
-\usepackage{graphicx}
-\usepackage{subfigure}
-\usepackage{epstopdf}
 
 % Text layout
 \topmargin 0.0cm
@@ -136,7 +57,7 @@
 
 %% Include all macros below. Please limit the use of macros.
 %% END MACROS SECTION
-
+\usepackage{float}
 
 \begin{document}
 \linenumbers
@@ -160,7 +81,7 @@ $\ast$ E-mail: f.xia@acm.org
 
 % Please keep the abstract between 250 and 300 words
 \section*{Abstract}
-In academia, researchers with the same or similar research direction usually collaborate to discuss scheme, design experiments, write papers, etc. Recently, due to the proliferation of online social networks, it has become conventional for researchers to communicate and collaborate with each other. However, another problem arises. That is, how to find the most relevant and potential collaborators (MPCs) for each researcher. In this work, we propose a novel recommendation model called CCRec, which combines the information on researchers' publications and collaboraiton network to generate better collaborator recommendation. In order to effectively identify the most potential collaborators for researchers, we adopt a topic clustering model to identify the academic domains, as well as a random walk model to compute researchers' feature vectors. Using DBLP data sets, we conduct benchmarking experiments to examine the performance of CCRec. The experimental results show that CCRec outperforms other state-of-the-art methods in precision, recall and $F1$ score.
+In academia, researchers with the same or similar research direction usually collaborate to discuss scheme, design experiments, write papers, etc. Recently, due to the proliferation of online social networks, it has become conventional for researchers to communicate and collaborate with each other. However, another problem arises. That is, how to find the most relevant and potential collaborators for each researcher. In this work, we propose a novel recommendation model called CCRec, which combines the information on researchers' publications and collaboraiton network to generate better collaborator recommendation. In order to effectively identify the most potential collaborators for researchers, we adopt a topic clustering model to identify the academic domains, as well as a random walk model to compute researchers' feature vectors. Using DBLP data sets, we conduct benchmarking experiments to examine the performance of CCRec. The experimental results show that CCRec outperforms other state-of-the-art methods in precision, recall and $F1$ score.
 
 % Please keep the Author Summary between 150 and 200 words
 % Use first person. PLOS ONE authors please skip this step.
@@ -173,9 +94,9 @@ In academia, researchers with the same or similar research direction usually col
 % =============================================================================
 The current scale of the Internet has risen beyond the imagination of people due to its rapid development. Consequently, how to obtain useful and effective information has become a complex task as a result of information overload. Recommender systems and techniques reduce the problems and immensely help people by providing easier access to the relevant resources they really need.
 
-In academia, collaboration among researchers often occurs and it has been shown that research collaboration has impact on scientific productivity \cite{lee2005impact}. Therefore, collaboration recommendation becomes very necessary and has been attracting more and more researchers in recent years. Generally, collaboration recommendation can be grouped into two classes: 1) recommend the most potential collaborators (MPCs) who have never collaborated with target before (i.e., build new collaborations); 2) recommend the most valuable collaborators (MVCs) who have collaborated with target before (i.e. reinforce old collaborations).
+In academia, collaboration among researchers often occurs and it has been shown that research collaboration has impact on scientific productivity \cite{lee2005impact}. Therefore, collaboration recommendation becomes very necessary and has been attracting more and more researchers in recent years. Generally, collaboration recommendation can be grouped into two classes: 1) recommend the most potential collaborators (MPCs) who have never collaborated with target before (i.e. build new collaborations); 2) recommend the most valuable collaborators (MVCs) who have collaborated with target before (i.e. reinforce old collaborations).
 
-Considering the inherent requirements, a variety of methods relating to collaborators recommendation have been proposed, which involve three main aspects: content-based, social network-based and hybrid recommendation. Some traditional content-based methods extract researchers academic features through tags of interest, user profiles, publications etc. They make collaborators recommendation based on computing interest similarities \cite{lopes2010collaboration,gollapalli2012similar,kim2010collaborative}. However, a researcher shows biasness in various academic domains. Such behaviors usually reveal academic features of researchers in different domains. Thus, it is imperative to consider academic domains when recommending collaborators. Our previous work proposed a social network-based model called ACRec \cite{li2014acrec}, which solved the problem of recommending MVCs. ACRec enables the collaborated researchers to collaborate with each other again. However, many scientists also initiate collaborations outside of their social networks. It is burdensome and fraught with risk of initiating collaboration with socially unconnected researchers. However, unconnected researchers (MPCs) are more significant to be recommended. What's more, some hybrid models have been introduced in recent years \cite{lee2011recommending,chen2011collabseer,cohen2013recommending}, which have paved the way for many good references.
+Considering the inherent requirements, a variety of methods relating to collaborators recommendation have been proposed, which involve three main aspects: content-based, social network-based and hybrid recommendation. Some traditional content-based methods extract researchers academic features through tags of interest, user profiles, publications etc. They make collaborators recommendation based on computing interest similarities \cite{lopes2010collaboration,gollapalli2012similar,kim2010collaborative}. However, a researcher shows biasness in various academic domains. Such behaviors usually reveal academic features of researchers in different domains. Thus, it is imperative to consider academic domains when recommending collaborators. Our previous work proposed two social network-based models respectively called ACRec \cite{li2014acrec} and MVCWalker \cite{xia2014mvcwalker}, both of which solved the problem of recommending MVCs. ACRec enables the collaborated researchers to collaborate with each other again. However, many scientists also initiate collaborations outside of their social networks. It is burdensome and fraught with risk of initiating collaboration with socially unconnected researchers. Therefore, unconnected researchers (MPCs) are more significant to be recommended. What's more, some hybrid models have been introduced in recent years \cite{lee2011recommending,chen2011collabseer,cohen2013recommending,chaiwanarom2014collaborator,petertonkoker2014scientific,li2014author,xia2014socially}, which have paved the way for many good references.
 
 In this paper, we propose a novel hybrid model by exploiting Publication Contents and Collaboration Networks for Collaborators Recommendation (CCRec). Utilizing a topic clustering model \cite{pan2010research} \cite{pham2011clustering} and a random walk model, CCRec integrates the features of publications' contents and collaboration networks. We extract the subject terms from all researchers' publications and cluster these terms into several topics, then distribute researchers to corresponding domains. To represent the feature vectors of each researcher, we run the random walk with restart model (RWR) on each domain, which has been proved to be competent for calculating the rank score of nodes in social networks. After that, the CCRec firstly compute the similarities of researchers' feature vectors and then make a TopN recommendation of MPCs.
 
@@ -183,26 +104,20 @@ In summary, we make the following contributions in this paper. 1) To compute the
 
 The remainder of the paper is structured as follows. Section 2 briefly presents the related work. We discuss the details of our recommendation model in section 3, which highlights the structure of our recommendation model. In section 4, we conduct a series of experiments and analyze the results. Finally, section 5 concludes the paper.
 
-
-% You may title this section "Methods" or "Models".
-% "Models" is not a valid title for PLoS ONE authors. However, PLoS ONE
-% authors may use "Analysis"
-
 % =============================================================================
 \section*{RELATED WORK}
 % =============================================================================
-Collaboration plays an important role in academic research. A large aspect of work relating to academia focuses on two key issues, reinforcing and discovering collaborators, which are respectively defined as MVCs recommendation and MPCs recommendation in this paper. Lopes et al. \cite{lopes2010collaboration} worked on identifying new partners to execute joint research and enhancing the collaboration of current partners for researchers. Chen et al. \cite{chen2009make} proposed that the purpose of friends recommendation is "Make new friends, but keep the old". Research on enterprise social networking \cite{dimicco2008motivations} shows that users in a corporate context are interested in discovering valuable contacts not yet known to them, or connecting to weak ties, in addition to staying in touch with their close colleagues. Our previous work \cite{li2014acrec} focuses on recommending MVCs for researchers and enhancing the collaboration with colleagues in their academic social networks. In this work, CCRec has an aptitude for discovering new collaborators with high similarity (i.e. MPCs recommendation).
+Collaboration plays an important role in academic research. A large aspect of work relating to academia focuses on two key issues, reinforcing and discovering collaborators, which are respectively defined as MVCs recommendation and MPCs recommendation in this paper. Lopes et al. \cite{lopes2010collaboration} worked on identifying new partners to execute joint research and enhancing the collaboration of current partners for researchers. Chen et al. \cite{chen2009make} proposed that the purpose of friends recommendation is "Make new friends, but keep the old". Research on enterprise social networking \cite{dimicco2008motivations} shows that users in a corporate context are interested in discovering valuable contacts not yet known to them, or connecting to weak ties, in addition to staying in touch with their close colleagues. Our previous work \cite{li2014acrec,xia2014mvcwalker} focuses on recommending MVCs for researchers and enhancing the collaboration with colleagues in their academic social networks. In this work, CCRec has an aptitude for discovering new collaborators with high similarity (i.e. MPCs recommendation).
 
 In general, collaborators recommender systems are studied in three different perspectives according to methodologies used to perform recommendation: \emph{content-based}, \emph{social network-based} and \emph{hybrid approach}. The related work presented below correlate with these types of models.
 
 \emph{Content-based} methods recommend items classified according to user profiles and early choices considering semantic issues. Das G. et al. \cite{gollapalli2012similar} proposed models for computing the similarity between researchers based on expertise profiles extracted from their publications and academic homepages. Lopes et al. \cite{lopes2010collaboration} considered researchers' publications area and the vector space model to make collaboration recommendation. Kim et al. \cite{kim2010collaborative} proposed a collaborative filtering method to provide an enhanced recommendation quality derived from user-created tags. However, researchers often behave differently across multiple domains of interests, which might introduce topic drift problems in general recommendation systems \cite{tang2012cross}.
 
-\emph{Social network-based} methods recommend items considering the structure of social networks or some social factors. Ma et al. \cite{ma2011recommender} analyzed how social network information can benefit recommender systems and proposed a method of improving the performance of recommender systems by incorporating social network information. T. Huynh et al. \cite{huynh2013trend} proposed a method based on a combination of probability theory and graph theory for modeling and analysing co-author networks. They explored similar vertices of potential candidates for collaboration recommendation. Their main contribution involves taking the trend information into considering when computing the similarity of vertices. Many other approaches have been presented to formalize academic collaboration recommendation as a link prediction problem \cite{chen2012discovering} \cite{sun2011co} in social networks. Some of these approaches have been applied to large social networks and results show good performance. Lichtenwalter et al. \cite{lichtenwalter2010new} examined some important factors for link prediction and proposed a general framework, in addition to our previous work \cite{li2014acrec}.
+\emph{Social network-based} methods recommend items considering the structure of social networks or some social factors. Ma et al. \cite{ma2011recommender} analyzed how social network information can benefit recommender systems and proposed a method of improving the performance of recommender systems by incorporating social network information. T. Huynh et al. \cite{huynh2013trend} proposed a method based on a combination of probability theory and graph theory for modeling and analysing co-author networks. They explored similar vertices of potential candidates for collaboration recommendation. Their main contribution involves taking the trend information into considering when computing the similarity of vertices. Many other approaches \cite{chen2012discovering,sun2011co} have been presented to formalize academic collaboration recommendation as a link prediction problem in social networks. Some of these approaches have been applied to large social networks and results show good performance. Lichtenwalter et al. \cite{lichtenwalter2010new} examined some important factors for link prediction and proposed a general framework, in addition to our previous work \cite{li2014acrec,xia2014mvcwalker}.
 
-\emph{Hybrid} methods combine content-based and social network-based method to integrate their benefits. Lee et al. \cite{lee2011recommending} exploited how well content-based, social network-based and hybrid recommendation algorithms predict coauthor relationship, and results show that a hybrid algorithm combining content and social networks information performs better. Chen et al. \cite{chen2011collabseer} discussed CollabSeer, an open system to recommend potential research collaborators for researchers and scientists, which discovers collaborators based on the structure of coauthor networks and the user's topic of research interests. Cohen et al. \cite{cohen2013recommending} also worked on solving the collaborators recommendation problem, by combining traditional techniques for structural link prediction in social networks with textual relevancy and global importance metrics.
+\emph{Hybrid} methods combine content-based and social network-based method to integrate their benefits. Lee et al. \cite{lee2011recommending} exploited how well content-based, social network-based and hybrid recommendation algorithms predict coauthor relationship, and results show that a hybrid algorithm combining content and social networks information performs better. Some other brilliant hybrid algorithms can be found in Cohen's work \cite{cohen2013recommending}, Petertonkoker's work \cite{petertonkoker2014scientific} and Feng's work \cite{xia2014socially} etc. What's more, Chen et al. \cite{chen2011collabseer} discussed CollabSeer, an open system to recommend potential research collaborators for researchers and scientists, which discovers collaborators based on the structure of coauthor networks and the user's topic of research interests, which along with Li's work \cite{li2014author} stimulated our inspiration for introduce a topic model in CCRec. Recently, Chaiwanarom et al. \cite{chaiwanarom2014collaborator} proposed a new hybrid algorithm for recommending appropriate collaborators in interdisciplinary computer science using degrees of collaborative forces, temporal evolution of research interest, and comparative seniority status. The result shows it effective and innovative. however, there are also some issues concerning the recommendation in other research fields besides computer science should be addressed.
 
 In summary, hybrid methods have evident superiorities in representing researchers features and making collaborators recommendation. Moreover, the topic drift problems should be well solved when recommend collaborators. In this paper, We proposed CCRec model, which combined content-based and social network-based method, to discovery the MPCs in academic social networks.
-
 
 % =============================================================================
 \section*{DESIGN OF CCRec}
@@ -315,38 +230,8 @@ Our research on CCRec reveals that the combination of content-based and network-
 
 % Either type in your references using
 % \begin{thebibliography}{}
-% \bibitem{lopes2010collaboration}
-% Lopes, G. R., Moro, M. M., Wives, L. K., & De Oliveira, J. P. M. (2010). Collaboration recommendation on academic social networks. In Advances in Conceptual Modeling¨CApplications and Challenges (pp. 190-199). Springer Berlin Heidelberg.
-% \bibitem{brandao2013using}
-% Brand?o, M. A., Moro, M. M., Lopes, G. R., & Oliveira, J. P. (2013, May). Using link semantics to recommend collaborations in academic social networks. In Proceedings of the 22nd international conference on World Wide Web companion (pp. 833-840). International World Wide Web Conferences Steering Committee.
-% \bibitem{benchettara2010supervised}
-% \bibitem{brandao2012affiliation}
-% \bibitem{Ley:DBLP}
-% \bibitem{shani2011evaluating}
-% \bibitem{li2014acrec}
-% \bibitem{mikolov2013distributed}
-% \bibitem{huynh2014collaborator}
-% \bibitem{lee2005impact}
-% \bibitem{lee2011recommending}
-% \bibitem{freyne2010social}
-% \bibitem{chen2011collabseer}
-% \bibitem{chen2012discovering}
-% \bibitem{balog2007finding}
-% \bibitem{gollapalli2012similar}
-% \bibitem{huynh2013trend}
-% \bibitem{pan2010research}
-% \bibitem{liben2007link}
-% \bibitem{sun2011co}
-% \bibitem{pham2011clustering}
-% \bibitem{lichtenwalter2010new}
-% \bibitem{pavlov2007finding}
-% \bibitem{ma2011recommender}
-% \bibitem{barabasi2002evolution}
-% \bibitem{chen2009make}
-% \bibitem{dimicco2008motivations}
-% \bibitem{cohen2013recommending}
-% \bibitem{kim2010collaborative}
-% \bibitem{tang2012cross}
+% \bibitem{}
+% Text
 % \end{thebibliography}
 %
 % OR
@@ -354,142 +239,8 @@ Our research on CCRec reveals that the combination of content-based and network-
 % Compile your BiBTeX database using our plos2009.bst
 % style file and paste the contents of your .bbl file
 % here.
-\begin{thebibliography}{10}
-\providecommand{\url}[1]{\texttt{#1}}
-\providecommand{\urlprefix}{URL }
-\expandafter\ifx\csname urlstyle\endcsname\relax
-  \providecommand{\doi}[1]{doi:\discretionary{}{}{}#1}\else
-  \providecommand{\doi}{doi:\discretionary{}{}{}\begingroup
-  \urlstyle{rm}\Url}\fi
-\providecommand{\bibAnnoteFile}[1]{%
-  \IfFileExists{#1}{\begin{quotation}\noindent\textsc{Key:} #1\\
-  \textsc{Annotation:}\ \input{#1}\end{quotation}}{}}
-\providecommand{\bibAnnote}[2]{%
-  \begin{quotation}\noindent\textsc{Key:} #1\\
-  \textsc{Annotation:}\ #2\end{quotation}}
-\providecommand{\eprint}[2][]{\url{#2}}
 
-\bibitem{lee2005impact}
-Lee S, Bozeman B (2005) The impact of research collaboration on scientific
-  productivity.
-\newblock Social studies of science 35: 673--702.
-\bibAnnoteFile{lee2005impact}
-
-\bibitem{lopes2010collaboration}
-Lopes GR, Moro MM, Wives LK, De~Oliveira JPM (2010) Collaboration
-  recommendation on academic social networks.
-\newblock In: Advances in Conceptual Modeling--Applications and Challenges,
-  Springer. pp. 190--199.
-\bibAnnoteFile{lopes2010collaboration}
-
-\bibitem{gollapalli2012similar}
-Gollapalli SD, Mitra P, Giles CL (2012) Similar researcher search in academic
-  environments.
-\newblock In: Proc. ACM/IEEE JCDL. pp. 167--170.
-\bibAnnoteFile{gollapalli2012similar}
-
-\bibitem{kim2010collaborative}
-Kim HN, Ji AT, Ha I, Jo GS (2010) Collaborative filtering based on
-  collaborative tagging for enhancing the quality of recommendation.
-\newblock Electronic Commerce Research and Applications 9: 73--83.
-\bibAnnoteFile{kim2010collaborative}
-
-\bibitem{li2014acrec}
-Li J, Xia F, Wang W, Chen Z, Asabere NY, et~al. (2014) Acrec: a co-authorship
-  based random walk model for academic collaboration recommendation.
-\newblock In: Proc. WWW. pp. 1209--1214.
-\bibAnnoteFile{li2014acrec}
-
-\bibitem{lee2011recommending}
-Lee DH, Brusilovsky P, Schleyer T (2011) Recommending collaborators using
-  social features and mesh terms.
-\newblock Proceedings of the American Society for Information Science and
-  Technology 48: 1--10.
-\bibAnnoteFile{lee2011recommending}
-
-\bibitem{chen2011collabseer}
-Chen HH, Gou L, Zhang X, Giles CL (2011) Collabseer: a search engine for
-  collaboration discovery.
-\newblock In: Proc. ACM/IEEE JCDL. pp. 231--240.
-\bibAnnoteFile{chen2011collabseer}
-
-\bibitem{cohen2013recommending}
-Cohen S, Ebel L (2013) Recommending collaborators using keywords.
-\newblock In: Proc. WWW. pp. 959--962.
-\bibAnnoteFile{cohen2013recommending}
-
-\bibitem{pan2010research}
-Pan C, Li W (2010) Research paper recommendation with topic analysis.
-\newblock In: ICCDA. volume~4, pp. V4--264.
-\bibAnnoteFile{pan2010research}
-
-\bibitem{pham2011clustering}
-Pham MC, Cao Y, Klamma R, Jarke M (2011) A clustering approach for
-  collaborative filtering recommendation using social network analysis.
-\newblock J UCS 17: 583--604.
-\bibAnnoteFile{pham2011clustering}
-
-\bibitem{chen2009make}
-Chen J, Geyer W, Dugan C, Muller M, Guy I (2009) Make new friends, but keep the
-  old: recommending people on social networking sites.
-\newblock In: Proc. SIGCHI. pp. 201--210.
-\bibAnnoteFile{chen2009make}
-
-\bibitem{dimicco2008motivations}
-DiMicco J, Millen DR, Geyer W, Dugan C, Brownholtz B, et~al. (2008) Motivations
-  for social networking at work.
-\newblock In: Proce. ACM CSCW. pp. 711--720.
-\bibAnnoteFile{dimicco2008motivations}
-
-\bibitem{tang2012cross}
-Tang J, Wu S, Sun J, Su H (2012) Cross-domain collaboration recommendation.
-\newblock In: Proc. SIGKDD. pp. 1285--1293.
-\bibAnnoteFile{tang2012cross}
-
-\bibitem{ma2011recommender}
-Ma H, Zhou D, Liu C, Lyu MR, King I (2011) Recommender systems with social
-  regularization.
-\newblock In: Proc.ACM WSDM. pp. 287--296.
-\bibAnnoteFile{ma2011recommender}
-
-\bibitem{huynh2013trend}
-Huynh T, Hoang K, Lam D (2013) Trend based vertex similarity for academic
-  collaboration recommendation.
-\newblock In: Computational Collective Intelligence. Technologies and
-  Applications, Springer. pp. 11--20.
-\bibAnnoteFile{huynh2013trend}
-
-\bibitem{chen2012discovering}
-Chen HH, Gou L, Zhang XL, Giles CL (2012) Discovering missing links in networks
-  using vertex similarity measures.
-\newblock In: Proc. ACM SAC. pp. 138--143.
-\bibAnnoteFile{chen2012discovering}
-
-\bibitem{sun2011co}
-Sun Y, Barber R, Gupta M, Aggarwal CC, Han J (2011) Co-author relationship
-  prediction in heterogeneous bibliographic networks.
-\newblock In: ASONAM. IEEE, pp. 121--128.
-\bibAnnoteFile{sun2011co}
-
-\bibitem{lichtenwalter2010new}
-Lichtenwalter RN, Lussier JT, Chawla NV (2010) New perspectives and methods in
-  link prediction.
-\newblock In: Proc. SIGKDD. pp. 243--252.
-\bibAnnoteFile{lichtenwalter2010new}
-
-\bibitem{Ley:DBLP}
-Ley M (2009) Dblp: some lessons learned.
-\newblock Proceedings of the VLDB Endowment 2: 1493-1500.
-\bibAnnoteFile{Ley:DBLP}
-
-\bibitem{shani2011evaluating}
-Shani G, Gunawardana A (2011) Evaluating recommendation systems.
-\newblock In: Recommender systems handbook, Springer. pp. 257--297.
-\bibAnnoteFile{shani2011evaluating}
-
-\end{thebibliography}
-
-%\bibliography{CCRec}
+\bibliography{CCRec}
 
 \section*{Figure Legends}
 % This section is for figure legends only, do not include
@@ -561,7 +312,7 @@ Shani G, Gunawardana A (2011) Evaluating recommendation systems.
 %\label{tab:label}
 % \end{table}
 
-\begin{table}[!hbt]
+\begin{table}[H]
 \caption{\bf{Statistics of Data Set from DBLP}}
 \label{tab:statdblp}
 \centering
@@ -571,7 +322,7 @@ Nodes&Edges&Average Degree&words\\\hline
 \end{tabular}
 \end{table}
 
-\section*{Supporting Information Legends}
+%\section*{Supporting Information Legends}
 %
 % Please enter your Supporting Information captions below in the following format:
 %\item{\bf Figure SX. Enter mandatory title here.} Enter optional descriptive information here.
