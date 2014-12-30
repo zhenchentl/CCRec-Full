@@ -239,8 +239,175 @@ Our research on CCRec reveals that the combination of content-based and network-
 % Compile your BiBTeX database using our plos2009.bst
 % style file and paste the contents of your .bbl file
 % here.
+\begin{thebibliography}{10}
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\urlprefix}{URL }
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi:\discretionary{}{}{}#1}\else
+  \providecommand{\doi}{doi:\discretionary{}{}{}\begingroup
+  \urlstyle{rm}\Url}\fi
+\providecommand{\bibAnnoteFile}[1]{%
+  \IfFileExists{#1}{\begin{quotation}\noindent\textsc{Key:} #1\\
+  \textsc{Annotation:}\ \input{#1}\end{quotation}}{}}
+\providecommand{\bibAnnote}[2]{%
+  \begin{quotation}\noindent\textsc{Key:} #1\\
+  \textsc{Annotation:}\ #2\end{quotation}}
+\providecommand{\eprint}[2][]{\url{#2}}
 
-\bibliography{CCRec}
+\bibitem{lee2005impact}
+Lee S, Bozeman B (2005) The impact of research collaboration on scientific
+  productivity.
+\newblock Soc Stud Sci 35: 673--702.
+\bibAnnoteFile{lee2005impact}
+
+\bibitem{lopes2010collaboration}
+Lopes GR, Moro MM, Wives LK, De~Oliveira JPM (2010) Collaboration
+  recommendation on academic social networks.
+\newblock In: Advances in Conceptual Modeling--Applications and Challenges,
+  Springer. pp. 190--199.
+\bibAnnoteFile{lopes2010collaboration}
+
+\bibitem{gollapalli2012similar}
+Gollapalli SD, Mitra P, Giles CL (2012) Similar researcher search in academic
+  environments.
+\newblock In: Proc. ACM/IEEE JCDL. pp. 167--170.
+\bibAnnoteFile{gollapalli2012similar}
+
+\bibitem{kim2010collaborative}
+Kim HN, Ji AT, Ha I, Jo GS (2010) Collaborative filtering based on
+  collaborative tagging for enhancing the quality of recommendation.
+\newblock Electron Commer Res Appl 9: 73--83.
+\bibAnnoteFile{kim2010collaborative}
+
+\bibitem{li2014acrec}
+Li J, Xia F, Wang W, Chen Z, Asabere NY, et~al. (2014) Acrec: a co-authorship
+  based random walk model for academic collaboration recommendation.
+\newblock In: Proc. WWW. pp. 1209--1214.
+\bibAnnoteFile{li2014acrec}
+
+\bibitem{xia2014mvcwalker}
+Xia F, Chen Z, Wang W, Li J, Yang LT (2014) Mvcwalker: Random walk based most
+  valuable collaborators recommendation exploiting academic factors.
+\newblock IEEE Trans Emerg Top Comput 2: 364-375.
+\bibAnnoteFile{xia2014mvcwalker}
+
+\bibitem{lee2011recommending}
+Lee DH, Brusilovsky P, Schleyer T (2011) Recommending collaborators using
+  social features and mesh terms.
+\newblock Proceedings of the American Society for Information Science and
+  Technology 48: 1--10.
+\bibAnnoteFile{lee2011recommending}
+
+\bibitem{chen2011collabseer}
+Chen HH, Gou L, Zhang X, Giles CL (2011) Collabseer: a search engine for
+  collaboration discovery.
+\newblock In: Proc. ACM/IEEE JCDL. pp. 231--240.
+\bibAnnoteFile{chen2011collabseer}
+
+\bibitem{cohen2013recommending}
+Cohen S, Ebel L (2013) Recommending collaborators using keywords.
+\newblock In: Proc. WWW. pp. 959--962.
+\bibAnnoteFile{cohen2013recommending}
+
+\bibitem{chaiwanarom2014collaborator}
+Chaiwanarom P, Lursinsap C (2014) Collaborator recommendation in
+  interdisciplinary computer science using degrees of collaborative forces,
+  temporal evolution of research interest, and comparative seniority status.
+\newblock Knowledge-Based Systems .
+\bibAnnoteFile{chaiwanarom2014collaborator}
+
+\bibitem{petertonkoker2014scientific}
+Petertonkoker J, Reinhardt W, Surve J, Sureka P (2014) Scientific
+  recommendations to enhance scholarly awareness and foster collaboration.
+\newblock In: Recommender Systems for Technology Enhanced Learning, Springer.
+  pp. 283--306.
+\bibAnnoteFile{petertonkoker2014scientific}
+
+\bibitem{li2014author}
+Li C, Cheung WK, Ye Y, Zhang X, Chu D, et~al. (2014) The author-topic-community
+  model for author interest profiling and community discovery.
+\newblock Knowledge and Information Systems : 1--25.
+\bibAnnoteFile{li2014author}
+
+\bibitem{xia2014socially}
+Xia F, Asabere NY, Liu H, Chen Z, Wang W (2014) Socially aware conference
+  participant recommendation with personality traits.
+\newblock IEEE Systems Journal .
+\bibAnnoteFile{xia2014socially}
+
+\bibitem{pan2010research}
+Pan C, Li W (2010) Research paper recommendation with topic analysis.
+\newblock In: ICCDA. volume~4, pp. V4--264.
+\bibAnnoteFile{pan2010research}
+
+\bibitem{pham2011clustering}
+Pham MC, Cao Y, Klamma R, Jarke M (2011) A clustering approach for
+  collaborative filtering recommendation using social network analysis.
+\newblock J UCS 17: 583--604.
+\bibAnnoteFile{pham2011clustering}
+
+\bibitem{chen2009make}
+Chen J, Geyer W, Dugan C, Muller M, Guy I (2009) Make new friends, but keep the
+  old: recommending people on social networking sites.
+\newblock In: Proc. SIGCHI. pp. 201--210.
+\bibAnnoteFile{chen2009make}
+
+\bibitem{dimicco2008motivations}
+DiMicco J, Millen DR, Geyer W, Dugan C, Brownholtz B, et~al. (2008) Motivations
+  for social networking at work.
+\newblock In: Proce. ACM CSCW. pp. 711--720.
+\bibAnnoteFile{dimicco2008motivations}
+
+\bibitem{tang2012cross}
+Tang J, Wu S, Sun J, Su H (2012) Cross-domain collaboration recommendation.
+\newblock In: Proc. SIGKDD. pp. 1285--1293.
+\bibAnnoteFile{tang2012cross}
+
+\bibitem{ma2011recommender}
+Ma H, Zhou D, Liu C, Lyu MR, King I (2011) Recommender systems with social
+  regularization.
+\newblock In: Proc.ACM WSDM. pp. 287--296.
+\bibAnnoteFile{ma2011recommender}
+
+\bibitem{huynh2013trend}
+Huynh T, Hoang K, Lam D (2013) Trend based vertex similarity for academic
+  collaboration recommendation.
+\newblock In: Computational Collective Intelligence. Technologies and
+  Applications, Springer. pp. 11--20.
+\bibAnnoteFile{huynh2013trend}
+
+\bibitem{chen2012discovering}
+Chen HH, Gou L, Zhang XL, Giles CL (2012) Discovering missing links in networks
+  using vertex similarity measures.
+\newblock In: Proc. ACM SAC. pp. 138--143.
+\bibAnnoteFile{chen2012discovering}
+
+\bibitem{sun2011co}
+Sun Y, Barber R, Gupta M, Aggarwal CC, Han J (2011) Co-author relationship
+  prediction in heterogeneous bibliographic networks.
+\newblock In: ASONAM. IEEE, pp. 121--128.
+\bibAnnoteFile{sun2011co}
+
+\bibitem{lichtenwalter2010new}
+Lichtenwalter RN, Lussier JT, Chawla NV (2010) New perspectives and methods in
+  link prediction.
+\newblock In: Proc. SIGKDD. pp. 243--252.
+\bibAnnoteFile{lichtenwalter2010new}
+
+\bibitem{Ley:DBLP}
+Ley M (2009) Dblp: some lessons learned.
+\newblock Proceedings VLDB Endowment 2: 1493-1500.
+\bibAnnoteFile{Ley:DBLP}
+
+\bibitem{shani2011evaluating}
+Shani G, Gunawardana A (2011) Evaluating recommendation systems.
+\newblock In: Recommender systems handbook, Springer. pp. 257--297.
+\bibAnnoteFile{shani2011evaluating}
+
+\end{thebibliography}
+
+
+%\bibliography{CCRec}
 
 \section*{Figure Legends}
 % This section is for figure legends only, do not include
