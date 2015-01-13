@@ -1,45 +1,130 @@
-\documentclass[10pt]{article}
+% Template for PLoS
+% Version 3.0 December 2014
+%
+% To compile to pdf, run:
+% latex plos.template
+% bibtex plos.template
+% latex plos.template
+% latex plos.template
+% dvipdf plos.template
+%
+% % % % % % % % % % % % % % % % % % % % % %
+%
+% -- IMPORTANT NOTE
+%
+% This template contains comments intended
+% to minimize problems and delays during our production
+% process. Please follow the template instructions
+% whenever possible.
+%
+% % % % % % % % % % % % % % % % % % % % % % %
+%
+% Once your paper is accepted for publication,
+% PLEASE REMOVE ALL TRACKED CHANGES in this file and leave only
+% the final text of your manuscript.
+%
+% There are no restrictions on package use within the LaTeX files except that
+% no packages listed in the template may be deleted.
+%
+% Please do not include colors or graphics in the text.
+%
+% Please do not create a heading level below \subsection. For 3rd level headings, use \paragraph{}.
+%
+% % % % % % % % % % % % % % % % % % % % % % %
+%
+% -- FIGURES AND TABLES
+%
+% Please include tables/figure captions directly after the paragraph where they are first cited in the text.
+%
+% DO NOT INCLUDE GRAPHICS IN YOUR MANUSCRIPT
+% - Figures should be uploaded separately from your manuscript file.
+% - Figures generated using LaTeX should be extracted and removed from the PDF before submission.
+% - Figures containing multiple panels/subfigures must be combined into one image file before submission.
+% See http://www.plosone.org/static/figureGuidelines for PLOS figure guidelines.
+%
+% Tables should be cell-based and may not contain:
+% - tabs/spacing/line breaks within cells to alter layout or alignment
+% - vertically-merged cells (no tabular environments within tabular environments, do not use \multirow)
+% - colors, shading, or graphic objects
+% See http://www.plosone.org/static/figureGuidelines#tables for table guidelines.
+%
+% For tables that exceed the width of the text column, use the adjustwidth environment as illustrated in the example table in text below.
+%
+% % % % % % % % % % % % % % % % % % % % % % % %
+%
+% -- EQUATIONS, MATH SYMBOLS, SUBSCRIPTS, AND SUPERSCRIPTS
+%
+% IMPORTANT
+% Below are a few tips to help format your equations and other special characters according to our specifications. For more tips to help reduce the possibility of formatting errors during conversion, please see our LaTeX guidelines at http://www.plosone.org/static/latexGuidelines
+%
+% Please be sure to include all portions of an equation in the math environment.
+%
+% Do not include text that is not math in the math environment. For example, CO2 will be CO\textsubscript{2}.
+%
+% Please add line breaks to long display equations when possible in order to fit size of the column.
+%
+% For inline equations, please do not include punctuation (commas, etc) within the math environment unless this is part of the equation.
+%
+% % % % % % % % % % % % % % % % % % % % % % % %
+%
+% Please contact latex@plos.org with any questions.
+%
+% % % % % % % % % % % % % % % % % % % % % % % %
 
-% amsmath package, useful for mathematical formulas
-\usepackage{amsmath}
-% amssymb package, useful for mathematical symbols
-\usepackage{amssymb}
+\documentclass[10pt,letterpaper]{article}
+\usepackage[top=0.85in,left=2.75in,footskip=0.75in]{geometry}
+
+% Use adjustwidth environment to exceed column width (see example table in text)
+\usepackage{changepage}
+
+% Use Unicode characters when possible
+\usepackage[utf8]{inputenc}
+
+% textcomp package and marvosym package for additional characters
+\usepackage{textcomp,marvosym}
+
+% fixltx2e package for \textsubscript
+\usepackage{fixltx2e}
+
+% amsmath and amssymb packages, useful for mathematical formulas and symbols
+\usepackage{amsmath,amssymb}
 
 % cite package, to clean up citations in the main text. Do not remove.
 \usepackage{cite}
+\usepackage[dvipdfm]{hyperref}
 
-\usepackage[dvipdfm,colorlinks,citecolor=blue,linkcolor=blue]{hyperref}
+% Use nameref to cite supporting information files (see Supporting Information section for more info)
+\usepackage{nameref,hyperref}
 
 % line numbers
-\usepackage{lineno}
+\usepackage[right]{lineno}
 
 % ligatures disabled
 \usepackage{microtype}
 \DisableLigatures[f]{encoding = *, family = * }
 
 % rotating package for sideways tables
-%\usepackage{rotating}
+\usepackage{rotating}
 
-%\usepackage{algorithmic}
+% Remove comment for double spacing
+%\usepackage{setspace}
+%\doublespacing
+
 \usepackage{algorithm}
 \usepackage{algorithmicx}
 \usepackage{algpseudocode}
 \newcommand{\algorithmicbreak}{\textbf{break}}
 \newcommand{\BREAK}{\State \algorithmicbreak}
-% Use doublespacing - comment out for single spacing
-%\usepackage{setspace}
-%\doublespacing
 
 % Text layout
-\topmargin 0.0cm
-\oddsidemargin 0.5cm
-\evensidemargin 0.5cm
-\textwidth 16cm
-\textheight 21cm
+\raggedright
+\setlength{\parindent}{0.5cm}
+\textwidth 5.25in
+\textheight 8.75in
 
-% Bold the 'Figure #' in the caption and separate it with a period
+% Bold the 'Figure #' in the caption and separate it from the title/caption with a period
 % Captions will be left justified
-\usepackage[labelfont=bf,labelsep=period,justification=raggedright]{caption}
+\usepackage[aboveskip=1pt,labelfont=bf,labelsep=period,justification=raggedright,singlelinecheck=off]{caption}
 
 % Use the PLoS provided BiBTeX style
 \bibliographystyle{plos2009}
@@ -49,65 +134,123 @@
 \renewcommand{\@biblabel}[1]{\quad#1.}
 \makeatother
 
-
 % Leave date blank
 \date{}
 
+% Header and Footer with logo
+\usepackage{lastpage,fancyhdr,graphicx}
 \pagestyle{myheadings}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\includegraphics[natwidth=1.3in,natheight=0.4in]{PLOSlogo.png}}
+\rfoot{\thepage/\pageref{LastPage}}
+\renewcommand{\footrule}{\hrule height 2pt \vspace{2mm}}
+\fancyheadoffset[L]{2.25in}
+\fancyfootoffset[L]{2.25in}
+\lfoot{\sf PLOS}
 
-%% Include all macros below. Please limit the use of macros.
+%% Include all macros below
+
+\newcommand{\lorem}{{\bf LOREM}}
+\newcommand{\ipsum}{{\bf IPSUM}}
+
 %% END MACROS SECTION
-\usepackage{float}
+
 
 \begin{document}
-\linenumbers
+\vspace*{0.35in}
 
 % Title must be 150 characters or less
 \begin{flushleft}
 {\Large
-\textbf{Exploiting Publication Contents and Collaboration Networks for Collaborator Recommendation}
+\textbf\newline{Exploiting Publication Contents and Collaboration Networks for Collaborator Recommendation}
 }
+\newline
 % Insert Author names, affiliations and corresponding author email.
 \\
-Huizhen Jiang$^{1}$,
-Haifeng Liu$^{1}$,
-Zhen Chen$^{1}$,
-%Author4$^{1,\ast}$
-\\
+Huizhen Jiang\textsuperscript{1},
+Haifeng Liu\textsuperscript{1},
+Zhen Chen\textsuperscript{1},
+Author 4\textsuperscript{1,*}
+
+%Name1 Surname\textsuperscript{1},
+%Name2 Surname\textsuperscript{2,\textpilcrow},
+%Name3 Surname\textsuperscript{2,\textcurrency a},
+%Name4 Surname\textsuperscript{2,\ddag},
+%Name5 Surname\textsuperscript{2,\ddag},
+%Name6 Surname\textsuperscript{2,\Yinyang},
+%Name7 Surname\textsuperscript{3,*,\Yinyang}
+
 \bf{1} School of Software, Dalian University of Technology, Dalian 116620, China
 \\
-$\ast$ E-mail: f.xia@acm.org
+%\bf{2} Affiliation Dept/Program/Center, Institution Name, City, State, Country
+%\\
+%\bf{3} Affiliation Dept/Program/Center, Institution Name, City, State, Country
+%\\
+
+% Insert additional author notes using the symbols described below. Insert symbol callouts after author names as necessary.
+%
+% Remove or comment out the author notes below if they aren't used.
+%
+% Primary Equal Contribution Note
+%\Yinyang These authors contributed equally to this work.
+
+% Additional Equal Contribution Note
+%\ddag These authors also contributed equally to this work.
+
+% Current address notes
+%\textcurrency a Insert current address of first author with an address update
+% \textcurrency b Insert current address of second author with an address update
+% \textcurrency c Insert current address of third author with an address update
+
+% Deceased author note
+%\dag Deceased
+
+% Group/Consortium Author Note
+%\textpilcrow Insert Collaborative Author line here
+
+* E-mail: f.xia@acm.org
 \end{flushleft}
 
-% Please keep the abstract between 250 and 300 words
+% Please keep the abstract below 300 words
 \section*{Abstract}
 In academia, researchers with the same or similar research direction usually collaborate to discuss scheme, design experiments, write papers, etc. Recently, due to the proliferation of online social networks, it has become conventional for researchers to communicate and collaborate with each other. However, another problem arises. That is, how to find the most relevant and potential collaborators for each researcher. In this work, we propose a novel recommendation model called CCRec, which combines the information on researchers' publications and collaboration network to generate better collaborator recommendation. In order to effectively identify the most potential collaborators for researchers, we adopt a topic clustering model to identify the academic domains, as well as a random walk model to compute researchers' feature vectors. Using DBLP data sets, we conduct benchmarking experiments to examine the performance of CCRec. The experimental results show that CCRec outperforms other state-of-the-art methods in precision, recall and $F1$ score.
+
 
 % Please keep the Author Summary between 150 and 200 words
 % Use first person. PLOS ONE authors please skip this step.
 % Author Summary not valid for PLOS ONE submissions.
-\section*{Author Summary}
+%\section*{Author Summary}
 
+\linenumbers
 
 % =============================================================================
 \section*{Introduction}
 % =============================================================================
 The current scale of the Internet has risen beyond the imagination of people due to its rapid development. Consequently, how to obtain useful and effective information has become a complex task as a result of information overload. Recommender systems and techniques reduce the problems and immensely help people by providing easier access to the relevant resources they really need.
 
-In academia, collaboration among researchers often occurs and it has been shown that research collaboration has impact on scientific productivity \cite{lee2005impact}. Therefore, collaboration recommendation becomes very necessary and has been attracting more and more researchers in recent years. Generally, collaboration recommendation can be grouped into two classes: 1) recommend the most potential collaborators (MPCs) who have never collaborated with target before (i.e. build new collaborations); 2) recommend the most valuable collaborators (MVCs) who have collaborated with target before (i.e. reinforce old collaborations). Lopes et al. \cite{lopes2010collaboration} worked on identifying new partners to execute joint research and enhancing the collaboration of current partners for researchers. Chen et al. \cite{chen2009make} proposed that the purpose of friends recommendation is "Make new friends, but keep the old". Research on enterprise social networking \cite{dimicco2008motivations} shows that users in a corporate context are interested in discovering valuable contacts not yet known to them, or connecting to weak ties, in addition to staying in touch with their close colleagues. Our previous work \cite{li2014acrec,xia2014mvcwalker} focuses on recommending MVCs for researchers and enhancing the collaboration with colleagues in their academic social networks. In this work, CCRec has an aptitude for discovering new collaborators with high similarity (i.e. MPCs recommendation).
+In academia, collaboration among researchers often occurs and it has been shown that research collaboration has impact on scientific productivity~\cite{lee2005impact}. Therefore, collaboration recommendation becomes very necessary and has been attracting more and more researchers in recent years. Generally, collaboration recommendation can be grouped into two classes: 1) recommend the most potential collaborators (MPCs) who have never collaborated with target before (i.e. build new collaborations); 2) recommend the most valuable collaborators (MVCs) who have collaborated with target before (i.e. reinforce old collaborations). Lopes et al.~\cite{lopes2010collaboration} worked on identifying new partners to execute joint research and enhancing the collaboration of current partners for researchers. Chen et al.~\cite{chen2009make} proposed that the purpose of friends recommendation is "Make new friends, but keep the old". Research on enterprise social networking~\cite{dimicco2008motivations} shows that users in a corporate context are interested in discovering valuable contacts not yet known to them, or connecting to weak ties, in addition to staying in touch with their close colleagues. Our previous work~\cite{li2014acrec,xia2014mvcwalker} focuses on recommending MVCs for researchers and enhancing the collaboration with colleagues in their academic social networks. In this work, CCRec has an aptitude for discovering new collaborators with high similarity (i.e. MPCs recommendation).
 
-Considering the inherent requirements, a variety of methods relating to collaborators recommendation have been proposed, which involve three main aspects: content-based, social network-based and hybrid recommendation. Some traditional content-based methods extract researchers academic features through tags of interest, user profiles, publications etc. Das G. et al. \cite{gollapalli2012similar} proposed models for computing the similarity between researchers based on expertise profiles extracted from their publications and academic homepages. Lopes et al. \cite{lopes2010collaboration} considered researchers' publications area and the vector space model to make collaboration recommendation. Kim et al. \cite{kim2010collaborative} proposed a collaborative filtering method to provide an enhanced recommendation quality derived from user-created tags. However, researchers often behave differently across multiple domains of interests, which might introduce topic drift problems in general recommendation systems \cite{tang2012cross}. However, a researcher shows biasness in various academic domains. Such behaviors usually reveal academic features of researchers in different domains. Thus, it is imperative to consider academic domains when recommending collaborators. Ma et al. \cite{ma2011recommender} analyzed how social network information can benefit recommender systems and proposed a method of improving the performance of recommender systems by incorporating social network information. T. Huynh et al. \cite{huynh2013trend} proposed a method based on a combination of probability theory and graph theory for modeling and analysing co-author networks. They explored similar vertices of potential candidates for collaboration recommendation. Their main contribution involves taking the trend information into considering when computing the similarity of vertices. Many other approaches \cite{chen2012discovering,sun2011co} have been presented to formalize academic collaboration recommendation as a link prediction problem in social networks. Some of these approaches have been applied to large social networks and results show good performance. Lichtenwalter et al. \cite{lichtenwalter2010new} examined some important factors for link prediction and proposed a general framework, in addition to our previous work \cite{li2014acrec,xia2014mvcwalker}. Besides, our previous work proposed two social network-based models respectively called ACRec \cite{li2014acrec} and MVCWalker \cite{xia2014mvcwalker}, both of which solved the problem of recommending MVCs. ACRec enables the collaborated researchers to collaborate with each other again. However, many scientists also initiate collaborations outside of their social networks. It is burdensome and fraught with risk of initiating collaboration with socially unconnected researchers. Therefore, unconnected researchers (MPCs) are more significant to be recommended. What's more, some hybrid models have been introduced in recent years, which have paved the way for many good references. Lee et al. \cite{lee2011recommending} exploited how well content-based, social network-based and hybrid recommendation algorithms predict coauthor relationship, and results show that a hybrid algorithm combining content and social networks information performs better. Some other brilliant hybrid algorithms can be found in Cohen's work \cite{cohen2013recommending}, Petertonkoker's work \cite{petertonkoker2014scientific} and Feng's work \cite{xia2014socially} etc. Recently, Chaiwanarom et al. \cite{chaiwanarom2014collaborator} proposed a new hybrid algorithm for recommending appropriate collaborators in interdisciplinary computer science using degrees of collaborative forces, temporal evolution of research interest, and comparative seniority status. The result shows it effective and innovative. however, there are also some issues concerning the recommendation in other research fields besides computer science should be addressed. What's more, Chen et al. \cite{chen2011collabseer} discussed CollabSeer, an open system to recommend potential research collaborators for researchers and scientists, which discovers collaborators based on the structure of coauthor networks and the user's topic of research interests, which along with Li's work \cite{li2014author} stimulated our inspiration for introduce a topic model in CCRec.
+Considering the inherent requirements, a variety of methods relating to collaborators recommendation have been proposed, which involve three main aspects: content-based, social network-based and hybrid recommendation. Some traditional content-based methods extract researchers academic features through tags of interest, user profiles, publications etc. Das G. et al.~\cite{gollapalli2012similar} proposed models for computing the similarity between researchers based on expertise profiles extracted from their publications and academic homepages. Lopes et al.~\cite{lopes2010collaboration} considered researchers' publications area and the vector space model to make collaboration recommendation. Kim et al.~\cite{kim2010collaborative} proposed a collaborative filtering method to provide an enhanced recommendation quality derived from user-created tags. However, researchers often behave differently across multiple domains of interests, which might introduce topic drift problems in general recommendation systems~\cite{tang2012cross}. However, a researcher shows biasness in various academic domains. Such behaviors usually reveal academic features of researchers in different domains. Thus, it is imperative to consider academic domains when recommending collaborators. Ma et al.~\cite{ma2011recommender} analyzed how social network information can benefit recommender systems and proposed a method of improving the performance of recommender systems by incorporating social network information. T. Huynh et al.~\cite{huynh2013trend} proposed a method based on a combination of probability theory and graph theory for modeling and analysing co-author networks. They explored similar vertices of potential candidates for collaboration recommendation. Their main contribution involves taking the trend information into considering when computing the similarity of vertices. Many other approaches~\cite{chen2012discovering,sun2011co} have been presented to formalize academic collaboration recommendation as a link prediction problem in social networks. Some of these approaches have been applied to large social networks and results show good performance. Lichtenwalter et al.~\cite{lichtenwalter2010new} examined some important factors for link prediction and proposed a general framework, in addition to our previous work~\cite{li2014acrec,xia2014mvcwalker}. Besides, our previous work proposed two social network-based models respectively called ACRec~\cite{li2014acrec} and MVCWalker~\cite{xia2014mvcwalker}, both of which solved the problem of recommending MVCs. ACRec enables the collaborated researchers to collaborate with each other again. However, many scientists also initiate collaborations outside of their social networks. It is burdensome and fraught with risk of initiating collaboration with socially unconnected researchers. Therefore, unconnected researchers (MPCs) are more significant to be recommended. What's more, some hybrid models have been introduced in recent years, which have paved the way for many good references. Lee et al.~\cite{lee2011recommending} exploited how well content-based, social network-based and hybrid recommendation algorithms predict coauthor relationship, and results show that a hybrid algorithm combining content and social networks information performs better. Some other brilliant hybrid algorithms can be found in Cohen's work~\cite{cohen2013recommending}, Petertonkoker's work~\cite{petertonkoker2014scientific} and Feng's work~\cite{xia2014socially} etc. Recently, Chaiwanarom et al.~\cite{chaiwanarom2014collaborator} proposed a new hybrid algorithm for recommending appropriate collaborators in interdisciplinary computer science using degrees of collaborative forces, temporal evolution of research interest, and comparative seniority status. The result shows it effective and innovative. however, there are also some issues concerning the recommendation in other research fields besides computer science should be addressed. What's more, Chen et al.~\cite{chen2011collabseer} discussed CollabSeer, an open system to recommend potential research collaborators for researchers and scientists, which discovers collaborators based on the structure of coauthor networks and the user's topic of research interests, which along with Li's work~\cite{li2014author} stimulated our inspiration for introduce a topic model in CCRec.
 
 Here we propose a novel hybrid model by exploiting Publication Contents and Collaboration Networks for Collaborators Recommendation (CCRec). In summary, we make the following contributions in this paper. 1) To compute the most potential collaborators recommendation, we develop a model CCRec, which combines the content-based and social network-based methods. By adopting this procedure, our approach is more favourable in terms of achieving remarkable personalized collaborators recommendation. 2) To reveal researchers' academic features in different domains, we present the feature vectors by utilizing a topic clustering model and a random walk model. 3) Finally, we conduct extensive experiments on a subset of DBLP data set to evaluate the performance of CCRec in various scenarios. Moreover, we measured our previous ACRec model and the normal common neighbors-based model (CNRec) for comparison. Promising results are presented and analyzed.
+
 
 % =============================================================================
 \section*{Methods}
 % =============================================================================
-Our proposed recommendation scheme for CCRec is inspired by the reality and truth that a researcher usually desires to know other researchers who have similar research interests and strong influence in academia. As mentioned above, researchers often behave differently across multiple domains of interests. Such behaviors usually reveal the academic features of researchers in different domains. Besides, as a social-based model, the RWR model has been proved to be competent for calculating the rank score of nodes in social networks derived from co-authorship \cite{li2014acrec}. Researchers' strength of influence in specific domains can be well reflected by RWR. In this work, we first adopt a content-based method to acquire multiple domains of interests. Secondly, we employ the social network-based method of RWR to measure the researchers' strength of influence in different domains. In the final step of our design, we use the feature vector to evaluate the similarity of researchers and then obtain the recommendation list. The detailed process is described below and the corresponding pseudo-code is illustrated in Algorithm. \ref{algorithm1}. \autoref{Fig. 1} depicts the three main components of CCRec.
+Our proposed recommendation scheme for CCRec is inspired by the reality and truth that a researcher usually desires to know other researchers who have similar research interests and strong influence in academia. As mentioned above, researchers often behave differently across multiple domains of interests. Such behaviors usually reveal the academic features of researchers in different domains. Besides, as a social-based model, the RWR model has been proved to be competent for calculating the rank score of nodes in social networks derived from co-authorship~\cite{li2014acrec}. Researchers' strength of influence in specific domains can be well reflected by RWR. In this work, we first adopt a content-based method to acquire multiple domains of interests. Secondly, we employ the social network-based method of RWR to measure the researchers' strength of influence in different domains. In the final step of our design, we use the feature vector to evaluate the similarity of researchers and then obtain the recommendation list. The detailed process is described below and the corresponding pseudo-code is illustrated in \nameref{Algorithm1}. Figure~\ref{Fig. 1} depicts the three main components of CCRec.
+
+\begin{figure}[!hbt]
+\caption{{\bf The architecture of CCRec.} Depicts the three main components of CCRec: Topic clustering and researcher partition, random walk, similarity calculation and topN recommendation.}
+\label{Fig. 1}
+%\center
+%\includegraphics [width=4in]{Fig1.eps}
+\end{figure}
 
 \begin{algorithm}[!hbt]
-  \captionof{algorithm}{CCRec(D)}
-  \label{algorithm1}
+  \captionof{algorithm}{Algorithm. 1}
+  \label{Algorithm1}
   \begin{algorithmic}[1]
   \State $SoI \leftarrow Init()$
   \For {$d$ in $D$} // Traverse domains set $D$.
@@ -137,12 +280,20 @@ Our proposed recommendation scheme for CCRec is inspired by the reality and trut
 % -----------------------------------------------------------------------------
 It is a content-based method for topic clustering and researcher partition, which generates various domains and maps all researchers into these domains. In this work, we use a famous tool of Natural Language Processing (NLP) called word2vec, which provides an efficient implementation of the continuous of \emph{bag-of-words} and \emph{skip-gram} architectures for computing vector representations of words. It takes a text corpus as the input and produces the word vectors as the output. The final word vector file can be used as features in many NLP and machine learning applications. The word vectors can be also used for deriving word classes from huge data sets. This is achieved by performing K-means clustering on top of the word vectors. The output is a vocabulary file with words and their corresponding domain IDs. In the case of our CCRec model, the input data is a set of titles from all the papers created by each researcher. The titles are split in many sequential words. In addition, it is necessary to filter out some irrelevant words, e.g. "of", "the", "and", etc. When extracting words from titles, the set of preprocessed words can be used outline the core contents of papers, which are signified as valuable and reliable corpus to denote a variety of academic topics. With this English corpus, word2vec obtains various domains and clusters the words into specific domains.
 
-In addition, CCRec partitions researchers to specific domains through the following methods: 1) Extract subject terms from a researcher's publications. 2) Traverse all the terms and check the word vector. The model tags the researcher for particular domains that contain these subject terms. It should be emphasized that one researcher always belongs to several domains and there are also many researchers in one domain. \autoref{Fig. 2} illustrates an example. Assuming that CCRec extracts 12 subject terms from the publications titles of researcher $S1$. After topic clustering, we can see that, three of these subject terms are assigned to domain $A$, seven in $B$, and two in $C$. Thus, researcher $S1$ is tagged for domains $A$, $B$ and $C$. Through this method, each domain contains numerous researchers.
+
+In addition, CCRec partitions researchers to specific domains through the following methods: 1) Extract subject terms from a researcher's publications. 2) Traverse all the terms and check the word vector. The model tags the researcher for particular domains that contain these subject terms. It should be emphasized that one researcher always belongs to several domains and there are also many researchers in one domain. Figure~\ref{Fig. 2} illustrates an example. Assuming that CCRec extracts 12 subject terms from the publications titles of researcher $S1$. After topic clustering, we can see that, three of these subject terms are assigned to domain $A$, seven in $B$, and two in $C$. Thus, researcher $S1$ is tagged for domains $A$, $B$ and $C$. Through this method, each domain contains numerous researchers.
+
+\begin{figure}[!hbt]
+\caption{{\bf Researcher Partition.} Illustrates an example of partition researchers to several domains.}
+\label{Fig. 2}
+%\center
+%\includegraphics [width=4in]{Fig2.eps}
+\end{figure}
 
 \subsection*{Feature Vector Calculation}
 % -----------------------------------------------------------------------------
-As mentioned in section 2, in general, researchers devote themselves to several adjacent domains. But in the case of attention and strength of influence in various domains, there are often some biases. To measure the distribution of researchers' interests, we define the Strength of Influence ($SoI$) to denote the academic values (Rank Score) of researchers in different domains, which can be regarded as the feature vector elements of researchers. Considering each of the domains, there are numerous researchers with similar research interests. Their co-author relationships can be modeled by a social network. Thus, there are many co-author networks corresponding to different domains. The $SoI$ is measured by RWR model based on the co-author networks. The core equation of the RWR model is shown in equation (1) below:
-\begin{equation}
+As mentioned in section 2, in general, researchers devote themselves to several adjacent domains. But in the case of attention and strength of influence in various domains, there are often some biases. To measure the distribution of researchers' interests, we define the Strength of Influence ($SoI$) to denote the academic values (Rank Score) of researchers in different domains, which can be regarded as the feature vector elements of researchers. Considering each of the domains, there are numerous researchers with similar research interests. Their co-author relationships can be modeled by a social network. Thus, there are many co-author networks corresponding to different domains. The $SoI$ is measured by RWR model based on the co-author networks. The core equation of the RWR model is shown in Eq.~(\ref{eq:rwr}) below:
+\begin{equation}\label{eq:rwr}
 R_{d}^{(t+1)}=\alpha \mathbf{S}R_{d}^{(t)}+(1-\alpha)q
 \end{equation}
 where $R_{d}$ represents the rank score vector of all researchers in domain $d$, $q$ is the initial vector $R^0$, and $\alpha$ denotes the damping coefficient. RWR is an iterative process. After limited iterations, the vector $R$ will be convergent. In this scenario, $SoI_{s}=R_{d,s}$. That is, the final value of the vector item $R_{d,s}$ is the $SoI$ of researcher $s$.
@@ -152,8 +303,8 @@ In addition, with the help of RWR, the $SoI$ in various domains is quantified fo
 
 \subsection*{Collaboration Recommendation Based on Feature Vector Similarity}
 % -----------------------------------------------------------------------------
-CCRec recommends collaborators for researchers based on their similarities. To measure the academic feature similarities of researchers, we borrow a standard method, \emph{cosine similarity} (CS). CS is employed to define the similarity between two users $s_{1}$ and $s_{2}$ based on their feature vectors $F_{s_{1}}$ and $F_{s_{2}}$.
-\begin{equation}
+CCRec recommends collaborators for researchers based on their similarities. To measure the academic feature similarities of researchers, we borrow a standard method, \emph{cosine similarity} (CS), as shown in Eq.~(\ref{eq:cossim}). CS is employed to define the similarity between two users $s_{1}$ and $s_{2}$ based on their feature vectors $F_{s_{1}}$ and $F_{s_{2}}$.
+\begin{equation}\label{eq:cossim}
 Sim(s_{1},s_{2})=\frac{\sum_{i=1}^{n}(F_{s_{1},i}*F_{s_{2},i})}{\sqrt{\sum_{i=1}^{n}F_{s_{1},i}^2}*\sqrt{\sum_{i=1}^{n}F_{s_{2},i}^2}}
 \end{equation}
 Finally, we consider that researchers with high similarities have common interests. Therefore, they should be recommended to each other as potential academic collaborators. Hence, CCRec provides a \emph{TopN} recommendation list for each researcher.
@@ -161,37 +312,75 @@ Finally, we consider that researchers with high similarities have common interes
 % =============================================================================
 \section*{Results}
 % =============================================================================
-We conduct various experiments using data from DBLP \cite{Ley:DBLP}, a computer science bibliography website hosted at University of Trier, Germany. We extracted the subsets of the entire data using the required information, which are all in the field of data mining involving 34 journals and 49 conferences. The data was modeled by an academic social network, which contains 59659 nodes (authors) and 90282 edges (coauthor relations). Moreover, as described in \autoref{tab:statdblp}, the average degree is 1.531, and the number of the keywords is 104587. We divided the data set into two parts: the data before year 2011 as a training set, and the data after 2011 as a testing set.
+We conduct various experiments using data from DBLP~\cite{Ley:DBLP}, a computer science bibliography website hosted at University of Trier, Germany. We extracted the subsets of the entire data using the required information, which are all in the field of data mining involving 34 journals and 49 conferences. The data was modeled by an academic social network, which contains 59659 nodes (authors) and 90282 edges (coauthor relations). Moreover, as described in Table~\ref{tab:statdblp}, the average degree is 1.531, and the number of the keywords is 104587. We divided the data set into two parts: the data before year 2011 as a training set, and the data after 2011 as a testing set.
 
-We embarked on benchmarking experiments involving CCRec. To evaluate the performance of CCRec model in a better way, we employ three metrics that are widely used in the recommender systems: \emph{Precision}, \emph{Recall} and \emph{F1} \cite{shani2011evaluating}. We compared CCRec with the following two approaches. ACRec: a random walk recommendation model based on collaboration networks \cite{li2014acrec}. CNRec: a common neighbors based recommendation model \cite{lopes2010collaboration}. Four groups of experiments were conducted. These include: 1) Find the most valuable collaborators, who may have known each other before, or be active in adjacent circles, 2) Recommend most potential collaborators, who have never cooperated with the target researcher before, 3) Evaluate how domains clustering impact the performance of CCRec. For each experiment, there are 500 domains clustered. we randomly chose 100 constant researchers who are at least somewhat active in academic activities, that is they have co-authored more than 30 time with others. We generated collaborators recommendation for these 100 researchers, and then computed the average of precision, recall and $F1$.
+\begin{table}[!ht]
+\begin{adjustwidth}{-2.25in}{0in}
+\caption{\bf{Statistics of Data Set from DBLP}}
+\label{tab:statdblp}
+\begin{tabular}{|c|c|c|c|}\hline
+Nodes&Edges&Average Degree&words\\\hline
+59659 &90282 &1.513 &104587\\\hline
+\end{tabular}
+\end{adjustwidth}
+\end{table}
+
+We embarked on benchmarking experiments involving CCRec. To evaluate the performance of CCRec model in a better way, we employ three metrics that are widely used in the recommender systems: \emph{Precision}, \emph{Recall} and \emph{F1}~\cite{shani2011evaluating}. We compared CCRec with the following two approaches. ACRec: a random walk recommendation model based on collaboration networks~\cite{li2014acrec}. CNRec: a common neighbors based recommendation model~\cite{lopes2010collaboration}. Four groups of experiments were conducted. These include: 1) Find the most valuable collaborators, who may have known each other before, or be active in adjacent circles, 2) Recommend most potential collaborators, who have never cooperated with the target researcher before, 3) Evaluate how domains clustering impact the performance of CCRec. For each experiment, there are 500 domains clustered. we randomly chose 100 constant researchers who are at least somewhat active in academic activities, that is they have co-authored more than 30 time with others. We generated collaborators recommendation for these 100 researchers, and then computed the average of precision, recall and $F1$.
 
 
 All experiments were performed using a 64-bit Linux-based operation system, Ubuntu 12.04 with a 4-duo and 32GHz Intel CPU, 4-G Bytes memory. All the programs were implemented with Python.
 
 \subsection*{Most Valuable Collaborators Recommendation}
 % -----------------------------------------------------------------------------
-In our previous work \cite{li2014acrec}, We proposed an ACRec model which generates the most valuable collaborators recommendation for researchers. In this section, we analyze the performance of CCRec and ACRec in terms of generating the most valuable collaborators recommendation. The comparative results are shown in \autoref{Fig. 3}.
+In our previous work~\cite{li2014acrec}, We proposed an ACRec model which generates the most valuable collaborators recommendation for researchers. In this section, we analyze the performance of CCRec and ACRec in terms of generating the most valuable collaborators recommendation. The comparative results are shown in Figure~\ref{Fig. 3}.
 
-As shown in \autoref{Fig. 3}, The number of recommended collaborators has an obvious influence on the metrics with a clear trend. In the case of CCRec, as shown in \autoref{Fig. 3}(a), the precision drops when the number of recommended collaborators is increasing. At the same time, the recall in \autoref{Fig. 3}(b) rises with the increase of recommendation list, which finally approximates to $20\%$. In the case of ACRec, it has the same trend with CCRec in terms of precision and recall. Thus it can be verified that precision and recall are a pair of contradictory metrics. In order to weigh the two metrics to maximize profit, G. Shani et al. \cite{shani2011evaluating} adopted the metric $F1$. \autoref{Fig. 3}(c) describes the performance of CCRec and ACRec on $F1$. In case of CCRec model, $F1$ generally increases until the number of recommended collaborators is over 15, and then decreases gradually. Since point 15 is exactly the peak of $F1$. We can see that, CCRec performs best when recommending 15 collaborators to each researcher, and the $F1$ can reach $6.13\%$. However, in this scenario, ACRec gets its' highest $F1$ score $11.01\%$ at point 30.
+\begin{figure}[!hbt]
+\caption{{\bf Performance of CCRec and ACRec on most valuable collaborators recommendation.} The abscissas denote the length of recommendation list. The ordinates respectively represent the values of precision, recall and F1.}
+\label{Fig. 3}
+%\center
+%\includegraphics [width=\textwidth]{Fig3.eps}
+\end{figure}
 
-A reflection of \autoref{Fig. 3} substantiates that ACRec outperforms CCRec in terms of generating the most valuable collaborators recommendation. This is because, ACRec is based on the link-importance guiding random walk, which considers the walk distance and rank score and seeks the most valuable collaborators who may have known each other before, or are active in adjacent circles. Thus, compared with ACRec, there is no obvious superiority for CCRec to find the most valuable collaborators in adjacent circles.
+As shown in Figure~\ref{Fig. 3}, The number of recommended collaborators has an obvious influence on the metrics with a clear trend. In the case of CCRec, as shown in Figure~\ref{Fig. 3}(a), the precision drops when the number of recommended collaborators is increasing. At the same time, the recall in Figure~\ref{Fig. 3}(b) rises with the increase of recommendation list, which finally approximates to $20\%$. In the case of ACRec, it has the same trend with CCRec in terms of precision and recall. Thus it can be verified that precision and recall are a pair of contradictory metrics. In order to weigh the two metrics to maximize profit, G. Shani et al.~\cite{shani2011evaluating} adopted the metric $F1$. Figure~\ref{Fig. 3}(c) describes the performance of CCRec and ACRec on $F1$. In case of CCRec model, $F1$ generally increases until the number of recommended collaborators is over 15, and then decreases gradually. Since point 15 is exactly the peak of $F1$. We can see that, CCRec performs best when recommending 15 collaborators to each researcher, and the $F1$ can reach $6.13\%$. However, in this scenario, ACRec gets its' highest $F1$ score $11.01\%$ at point 30.
+
+A reflection of Figure~\ref{Fig. 3} substantiates that ACRec outperforms CCRec in terms of generating the most valuable collaborators recommendation. This is because, ACRec is based on the link-importance guiding random walk, which considers the walk distance and rank score and seeks the most valuable collaborators who may have known each other before, or are active in adjacent circles. Thus, compared with ACRec, there is no obvious superiority for CCRec to find the most valuable collaborators in adjacent circles.
 
 \subsection*{Most Potential Collaborators Recommendation}
 % -----------------------------------------------------------------------------
 We define the Most Potential Collaborators as collaborators who are worthy of being recommended and have never cooperated with the target researcher. Generating recommendations pertaining to the most potential collaborators is of great significance as the new collaborators are more meaningful and practical in the reality of academia. In this section, we explored the performance of CCRec, ACRec and CCRec on making most valuable collaborators recommendation.
 
-Figure 4 shows the performance of CCRec, ACRec and CNRec in terms of precision, recall and $F1$ with the number of recommended collaborators increasing. It can be observed that CCRec significantly outperforms ACRec and CNRec all the time on these three metrics. CCRec shows a downwards trend for precision and an upwards trend for recall rate. In the case of $F1$, it reaches a peak of $4.18\%$ when recommending 21 researchers. From \autoref{Fig. 4}, it is also evident that in relation to the generation of the most potential collaboration recommendations, ACRec outperforms CCRec in terms of the evaluation metrics we utilized.
+Figure~\ref{Fig. 4} shows the performance of CCRec, ACRec and CNRec in terms of precision, recall and $F1$ with the number of recommended collaborators increasing. It can be observed that CCRec significantly outperforms ACRec and CNRec all the time on these three metrics. CCRec shows a downwards trend for precision and an upwards trend for recall rate. In the case of $F1$, it reaches a peak of $4.18\%$ when recommending 21 researchers. From Figure~\ref{Fig. 4}, it is also evident that in relation to the generation of the most potential collaboration recommendations, ACRec outperforms CCRec in terms of the evaluation metrics we utilized.
+
+\begin{figure}[!hbt]
+\caption{{\bf Performance of CCRec, ACRec and CNRec on most potential collaborators recommendation.} The abscissas denote the length of recommendation list. The ordinates respectively represent the values of precision, recall and F1.}
+\label{Fig. 4}
+%\center
+%\includegraphics [width=\textwidth]{Fig4.eps}
+\end{figure}
 
 Simply, CCRec outperforms ACRec and CNRec with higher precision, recall and $F1$ on making the most potential collaborators. Each researcher is represented by the feature vector, as well as CCRec model which combines publications contents and collaboration networks to define the vector. Such a procedure has distinct advantages (e.g. rich information, more accurately to represent researchers' feature) in recommending new collaborators.
 
 \subsection*{Impact of Clustered Domains Number}
 % -----------------------------------------------------------------------------
-In this work, we clustered 500 topics based on DBLP data set and matched researchers to different domains. Here we analyzed the statistics of these domains. As described in \autoref{Fig. 5}, in terms of the number of researches in each domain, there are about 56 domains that contain up to 100 researchers, and two domains contain more than 2500 researchers. We can come to conclusion that, various domains show large different in scales. What's more, as shown in \autoref{Fig. 5}(b), most researchers are active in 2 to 20 domains. However, there is no clear standard to make the domains division. The statistics shows inconsistency with different clustering granularity. In this section, we exploit the impact of clustered domains number on the performance of CCRec.
+In this work, we clustered 500 topics based on DBLP data set and matched researchers to different domains. Here we analyzed the statistics of these domains. As described in Figure~\ref{Fig. 5}, in terms of the number of researches in each domain, there are about 56 domains that contain up to 100 researchers, and two domains contain more than 2500 researchers. We can come to conclusion that, various domains show large different in scales. What's more, as shown in Figure~\ref{Fig. 5}(b), most researchers are active in 2 to 20 domains. However, there is no clear standard to make the domains division. The statistics shows inconsistency with different clustering granularity. In this section, we exploit the impact of clustered domains number on the performance of CCRec.
 
-We adopted the following experiment settings: (1) Evaluate how the precision, recall and $F1$ score change with the number of collaborators recommended, (2) Generate the most potential collaborators recommendation for those 100 researchers selected above and (3) Recommend 21 potential collaborators for each researcher. \autoref{Fig. 6} shows the experimental results.
+\begin{figure}[!hbt]
+\caption{{\bf Statistics of data after topic clustering and researcher partition}}
+\label{Fig. 5}
+%\center
+%\includegraphics [width=\textwidth]{Fig5.eps}
+\end{figure}
 
+We adopted the following experiment settings: (1) Evaluate how the precision, recall and $F1$ score change with the number of collaborators recommended, (2) Generate the most potential collaborators recommendation for those 100 researchers selected above and (3) Recommend 21 potential collaborators for each researcher. Figure~\ref{Fig. 6} shows the experimental results.
 
-According to \autoref{Fig. 6}, the number of clustered domains do have certain effects on the performance of CCRec. If the number of clustered domains is appropriate, the $F1$ score achieves some enhancement. In this situation, when clustering the data mining academia into 500 domains, CCRec performs best over precision, recall and $F1$ score.
+\begin{figure}[!hbt]
+\caption{{\bf The impact of clustered domains number on CCRec.} The abscissas denote the length of recommendation list. The ordinates respectively represent the values of precision, recall and F1.}
+\label{Fig. 6}
+%\center
+%\includegraphics [width=\textwidth]{Fig6.eps}
+\end{figure}
+
+According to Figure~\ref{Fig. 6}, the number of clustered domains do have certain effects on the performance of CCRec. If the number of clustered domains is appropriate, the $F1$ score achieves some enhancement. In this situation, when clustering the data mining academia into 500 domains, CCRec performs best over precision, recall and $F1$ score.
 
 In summary, our proposed model, which combines content-based and social network-based methods shows improvement. Furthermore, in terms of precision, recall and $F1$, CCRec outperforms ACRec and CNRec generating the most potential collaborators (MPCs) recommendations for academic researchers.
 
@@ -203,17 +392,11 @@ In this paper, we focused on how to find researchers' MPCs based on big scholarl
 Our research on CCRec reveals that the combination of content-based and network-based methods can improve the generation of effective academic collaborations. Nonetheless, there is still room for future study in this direction. We extracted the titles of publications as the corpus of the topic clustering model, which are not more comprehensive than the abstract and main body of publications. Additionally, specific evaluation metrics should be utilized to evaluate the topic drift problem. As the future work, more experiments and studies should be conducted.
 
 % Do NOT remove this, even if you are not including acknowledgments.
-% =============================================================================
 \section*{Acknowledgments}
-% =============================================================================
 
-% =============================================================================
-\section*{Author Contributions}
-% =============================================================================
-Conceived and designed the experiments: HJ ZC. Performed the experiments: HJ ZC. Analyzed the data: HJ HL. Contributed reagents/materials/analysis tools: HJ ZC HL FX. Wrote the paper: HJ ZC.
+\nolinenumbers
 
 %\section*{References}
-
 % Either type in your references using
 % \begin{thebibliography}{}
 % \bibitem{}
@@ -225,6 +408,7 @@ Conceived and designed the experiments: HJ ZC. Performed the experiments: HJ ZC.
 % Compile your BiBTeX database using our plos2009.bst
 % style file and paste the contents of your .bbl file
 % here.
+%
 \begin{thebibliography}{10}
 \providecommand{\url}[1]{\texttt{#1}}
 \providecommand{\urlprefix}{URL }
@@ -381,98 +565,7 @@ Shani G, Gunawardana A (2011) Evaluating recommendation systems.
 
 \end{thebibliography}
 
-
 %\bibliography{CCRec}
-
-\section*{Figure Legends}
-% This section is for figure legends only, do not include
-% graphics in your manuscript file.
-%
-%\begin{figure}
-%\caption{
-%{\bf Bold the first sentence.}  Rest of figure caption.
-%}
-%\label{Figure_label}
-%\end{figure}
-
-\begin{figure}[!hbt]
-\caption{{\bf The architecture of CCRec.} Depicts the three main components of CCRec: Topic clustering and researcher partition, random walk, similarity calculation and topN recommendation.}
-\label{Fig. 1}
-%\center
-%\includegraphics [width=4in]{Fig1.eps}
-\end{figure}
-
-\begin{figure}[!hbt]
-\caption{{\bf Researcher Partition.} Illustrates an example of partition researchers to several domains.}
-\label{Fig. 2}
-%\center
-%\includegraphics [width=4in]{Fig2.eps}
-\end{figure}
-
-\begin{figure}[!hbt]
-\caption{{\bf Performance of CCRec and ACRec on most valuable collaborators recommendation.} The abscissas denote the length of recommendation list. The ordinates respectively represent the values of precision, recall and F1.}
-\label{Fig. 3}
-%\center
-%\includegraphics [width=\textwidth]{Fig3.eps}
-\end{figure}
-
-\begin{figure}[!hbt]
-\caption{{\bf Performance of CCRec, ACRec and CNRec on most potential collaborators recommendation.} The abscissas denote the length of recommendation list. The ordinates respectively represent the values of precision, recall and F1.}
-\label{Fig. 4}
-%\center
-%\includegraphics [width=\textwidth]{Fig4.eps}
-\end{figure}
-
-\begin{figure}[!hbt]
-\caption{{\bf Statistics of data after topic clustering and researcher partition}}
-\label{Fig. 5}
-%\center
-%\includegraphics [width=\textwidth]{Fig5.eps}
-\end{figure}
-
-\begin{figure}[!hbt]
-\caption{{\bf The impact of clustered domains number on CCRec.} The abscissas denote the length of recommendation list. The ordinates respectively represent the values of precision, recall and F1.}
-\label{Fig. 6}
-%\center
-%\includegraphics [width=\textwidth]{Fig6.eps}
-\end{figure}
-
-\section*{Tables}
-%
-% See introductory notes if you wish to include sideways tables.
-%
-% NOTE: Please look over our table guidelines at http://www.plosone.org/static/figureGuidelines#tables to make sure that your tables meet our requirements. Certain types of spacing, cell merging, and other formatting tricks may have unintended results and will be returned for revision.
-%
-%\begin{table}[!ht]
-%\caption{
-%\bf{Table title}}
-%\begin{tabular}{|c|c|c|}
-%table information
-%\end{tabular}
-%\begin{flushleft}Table caption
-%\end{flushleft}
-%\label{tab:label}
-% \end{table}
-
-\begin{table}[H]
-\caption{\bf{Statistics of Data Set from DBLP}}
-\label{tab:statdblp}
-\centering
-\begin{tabular}{|c|c|c|c|}\hline
-Nodes&Edges&Average Degree&words\\\hline
-59659 &90282 &1.513 &104587\\\hline
-\end{tabular}
-\end{table}
-
-%\section*{Supporting Information Legends}
-%
-% Please enter your Supporting Information captions below in the following format:
-%\item{\bf Figure SX. Enter mandatory title here.} Enter optional descriptive information here.
-%
-%\begin{description}
-%\item {\bf}
-%\item {\bf}
-%\end{description}
 
 \end{document}
 
